@@ -1,0 +1,2105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlexWork Hero Section</title>
+  
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts: Lato -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<style>
+/* Custom CSS to style active/inactive pill buttons smoothly */
+    .tab-pill-btn {
+      background: transparent;
+      color: #0f172a;
+      border-radius: 50rem !important;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 8px 18px;
+      border: none !important;
+      transition: all 0.2s ease-in-out;
+    }
+    .tab-pill-btn.active {
+      background-color: #7b7dfc !important;
+      color: #ffffff !important;
+    }
+    .tab-pill-btn:hover:not(.active) {
+  color: #7b7dfc !important;            /* Hover text color */
+}
+    #serviceTabs .nav-link.active {
+    color: #7b7dfc !important;
+  }
+  #serviceTabs .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #7b7dfc;
+    border-radius: 2px;
+  }
+    :root{
+    /* Brand colors — always these two values, everywhere */
+    --purple:#7b7dfc;
+    --purple-dark:#7b7dfc;
+    --purple-deep:#7b7dfc;
+    --yellow:#ffcd00;
+    --yellow-soft:#fff1b8;
+    --ink:#1c1b3a;
+    --muted:#6b6a8a;
+    --card:#ffffff;
+    --bg:#f6f6ff;
+    --line:#e7e7fb;
+    --shadow: 0 20px 45px -20px rgba(74,63,214,.35);
+    --radius: 20px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Lato', sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 24px;}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  .reveal.d1{transition-delay:.08s;}
+  .reveal.d2{transition-delay:.16s;}
+  .reveal.d3{transition-delay:.24s;}
+  .reveal.d4{transition-delay:.32s;}
+  .reveal.d5{transition-delay:.4s;}
+  .reveal.d6{transition-delay:.48s;}
+
+  /* shared shimmer sweep, reused by CTA ribbon + footer banner */
+  @keyframes shimmerSweep{
+    0%{left:-160%;}
+    55%,100%{left:160%;}
+  }
+  @keyframes fadeInUp{
+    from{opacity:0;transform:translateY(26px) scale(.98);}
+    to{opacity:1;transform:translateY(0) scale(1);}
+  }
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--yellow-soft);
+    color:#8a6d00;
+    font-weight:800;
+    font-size:12.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    padding:8px 18px;
+    border-radius:999px;
+    margin-bottom:18px;
+  }
+  .eyebrow svg{width:16px;height:16px;flex:none;animation:spin 6s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  h2.section-title{
+    font-size:clamp(28px,4vw,36px);
+    font-weight:900;
+    text-align:center;
+    margin:0 0 14px;
+    letter-spacing:-.01em;
+  }
+  .section-title .accent{color:var(--purple);position:relative;}
+  .section-title .accent svg{position:absolute;left:0;bottom:-10px;width:100%;}
+  p.section-sub{
+    text-align:center;
+    color:var(--muted);
+    max-width:680px;
+    margin:0 auto;
+    font-size:16px;
+    line-height:1.65;
+  }
+  .center{text-align:center;}
+
+  /* SECTION 1 — VISION */
+  .vision{
+    position:relative;
+    padding:100px 0 40px;
+    overflow:hidden;
+    background:#ffffff;
+  }
+  .vision::before{
+    content:"";
+    position:absolute;inset:0;
+    background-image: radial-gradient(var(--line) 1.6px, transparent 1.6px);
+    background-size: 22px 22px;
+    -webkit-mask-image: radial-gradient(ellipse 60% 45% at 85% 20%, #000 40%, transparent 75%);
+    mask-image: radial-gradient(ellipse 60% 45% at 85% 20%, #000 40%, transparent 75%);
+    opacity:.9;
+  }
+  .vision-blob{
+    position:absolute;
+    top:-160px; right:-160px;
+    width:560px;height:560px;
+    border-radius:50%;
+    background:radial-gradient(circle at 32% 32%, rgba(123,125,252,.45), rgba(123,125,252,0) 68%);
+    z-index:0;
+    pointer-events:none;
+  }
+  .sparkle{position:absolute;color:var(--yellow);animation:twinkle 2.6s ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{opacity:.25;transform:scale(.85) rotate(0deg);}50%{opacity:1;transform:scale(1.15) rotate(20deg);}}
+
+  .vision-head{position:relative;z-index:2;margin-bottom:56px;}
+
+  .vision-grid-wrap{position:relative;}
+
+  .vision-grid{
+    position:relative;z-index:2;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:26px;
+  }
+  .vcard{
+    background:var(--card);
+    border-radius:var(--radius);
+    padding:28px 28px 30px;
+    box-shadow: 0 10px 30px -18px rgba(28,27,58,.18);
+    border:1px solid var(--line);
+    position:relative;
+    transition:transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease, border-color .45s ease, background .45s ease;
+  }
+  .vcard:hover{
+    transform:translateY(-10px);
+    box-shadow:var(--shadow);
+    border-color:transparent;
+    background:var(--purple);
+  }
+  .vcard-media{
+    position:relative;
+    border-radius:16px;
+    overflow:hidden;
+    margin-bottom:22px;
+    aspect-ratio:4/3;
+    background:#f1f1ff;
+    transition:background .45s ease;
+  }
+  .vcard:hover .vcard-media{background:rgba(255,255,255,.12);}
+  .vcard-media img{
+    width:100%;height:100%;object-fit:contain;padding:16px;
+    transition:transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .vcard:hover .vcard-media img{transform:scale(1.06);}
+  .vcard-badge{
+    position:absolute; top:12px; right:12px;
+    width:42px;height:42px;border-radius:13px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--purple);
+    color:#fff;
+    box-shadow:0 12px 20px -8px rgba(123,125,252,.55);
+    transition:background .4s ease, color .4s ease, transform .4s ease;
+  }
+  .vcard-badge svg{width:21px;height:21px;}
+  .vcard:hover .vcard-badge{
+    background:var(--yellow);
+    color:#000;
+    transform:rotate(-8deg) scale(1.08);
+  }
+  .vcard h3{font-size:18px;margin:0 0 12px;font-weight:800;transition:color .4s ease;}
+  .vcard:hover h3{color:#fff;}
+  .vcard p{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 20px;transition:color .4s ease;}
+  .vcard:hover p{color:rgba(255,255,255,.85);}
+  .vtag{
+    display:inline-flex;align-items:center;gap:8px;
+    font-weight:800;font-size:13.5px;
+    padding:9px 16px;border-radius:999px;
+    background:#f1f1ff;color:var(--purple);
+    transition:background .35s ease, color .35s ease, transform .35s ease;
+  }
+  .vcard:hover .vtag{background:var(--yellow);color:#000;transform:translateX(3px);}
+  .vtag svg{width:15px;height:15px;}
+
+  /* CTA RIBBON — glow lives on the wrapper only, shimmer + solid brand purple live on the card */
+  .cta-banner{
+    position:relative;z-index:2;
+    margin-top:30px;
+    background:var(--purple);
+    border-radius:26px;
+    padding:2px;
+    color:#fff;
+    box-shadow:0 22px 46px -22px rgba(74,63,214,.55);
+    transition:box-shadow .5s ease, transform .45s ease;
+  }
+  .cta-banner:hover{
+    transform:translateY(-4px);
+    box-shadow:0 0 55px -6px rgba(255,205,0,.85), 0 0 0 2px rgba(255,205,0,.6);
+  }
+  .cta-inner{
+    position:relative;
+    border-radius:24px;
+    padding:42px 48px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+    overflow:hidden;
+    background:var(--purple);
+  }
+  @keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+  .cta-inner::before{
+    content:"";
+    position:absolute;top:0;left:-140%;width:22%;height:100%;
+    background:linear-gradient(115deg, transparent, rgba(255,255,255,.14), transparent);
+    transform:skewX(-20deg);
+    animation:shimmerSweep 5.5s ease-in-out infinite;
+    pointer-events:none;
+    z-index:0;
+  }
+  .cta-inner::after{
+    content:"";position:absolute;inset:0;
+    background-image: radial-gradient(rgba(255,255,255,.12) 1.5px, transparent 1.5px);
+    background-size:18px 18px;
+    opacity:.5;pointer-events:none;
+  }
+  .cta-glow{
+    position:absolute; inset:-50%;
+    background:radial-gradient(circle at 18% 35%, rgba(255,205,0,.28), transparent 55%);
+    opacity:0; transition:opacity .6s ease;
+    pointer-events:none;
+  }
+  .cta-banner:hover .cta-glow{opacity:1;}
+  .cta-left{display:flex;align-items:center;gap:26px;position:relative;z-index:1;}
+  .cta-illustration{
+    width:190px;height:190px;flex:none;border-radius:24px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,.12);
+    transition:background .45s ease, transform .45s ease;
+    overflow:hidden;
+    animation:ctaFloat 3.6s ease-in-out infinite;
+  }
+  .cta-illustration img{width:100%;height:100%;object-fit:contain;padding:6px;}
+  .cta-banner:hover .cta-illustration{background:rgba(255,255,255,.2);transform:translateY(-4px);}
+  @keyframes ctaFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+  @media(max-width:900px){
+    .cta-illustration{margin:0 auto;}
+  }
+  @media(max-width:560px){
+    .cta-illustration{width:150px;height:150px;}
+  }
+  .cta-eyebrow-text{display:block;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);margin-bottom:8px;position:relative;z-index:1;}
+  .cta-banner h3{margin:0;font-size:clamp(20px,2.6vw,28px);font-weight:900;line-height:1.4;position:relative;z-index:1;}
+  .cta-banner h3 span{color:var(--yellow);}
+  .cta-btn{
+    position:relative;z-index:1;
+    flex:none;
+    white-space:nowrap;
+    background:var(--yellow);
+    color:#000;
+    font-weight:900;
+    letter-spacing:.03em;
+    font-size:14.5px;
+    padding:17px 32px;
+    border-radius:14px;
+    border:none;
+    display:inline-flex;align-items:center;gap:10px;
+    cursor:pointer;
+    overflow:hidden;
+    box-shadow:0 14px 26px -10px rgba(0,0,0,.35);
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .cta-btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 20px 36px -10px rgba(0,0,0,.45), 0 0 26px -4px rgba(255,205,0,.9);}
+  .cta-btn svg{width:16px;height:16px;transition:transform .3s ease;position:relative;z-index:1;}
+  .cta-btn span{position:relative;z-index:1;}
+  .cta-btn:hover svg{transform:translateX(5px);}
+  .cta-btn-shine{
+    position:absolute; top:0; left:-60%; width:45%; height:100%;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,.85), transparent);
+    transform:skewX(-20deg);
+    transition:left .75s ease;
+  }
+  .cta-btn:hover .cta-btn-shine{left:130%;}
+  .bubble{position:absolute;color:rgba(255,255,255,.35);}
+  .bubble.b1{width:34px;top:24px;left:20px;animation:floatY 4s ease-in-out infinite;}
+  .bubble.b2{width:24px;bottom:18px;left:64px;animation:floatY 5s ease-in-out infinite 1s;}
+  @keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+
+  @media(max-width:1024px){
+    .vision-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:1024px) and (min-width:641px){
+    .vcard-media{max-width:320px;margin-left:auto;margin-right:auto;}
+    .vcard-media img{padding:26px;}
+  }
+  @media(max-width:900px){
+    .cta-inner{flex-direction:column;text-align:center;}
+    .cta-left{flex-direction:column;}
+  }
+  @media(max-width:640px){
+    .vision-grid{grid-template-columns:1fr;}
+  }
+
+  /* SECTION 2 — FEATURED JOBS */
+  .jobs{
+    padding:50px 0 40px;
+    background:
+      radial-gradient(ellipse 50% 60% at 92% 0%, #eef0ff 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 4% 100%, #fff8de 0%, transparent 60%),
+      #fff;
+  }
+  .jobs-head{margin-bottom:20px;}
+  .carousel-wrap{
+    position:relative;
+    margin-top:40px;
+  }
+  .carousel-track{
+    display:flex;gap:22px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    padding:8px 4px 24px;
+    scrollbar-width:none;
+  }
+  .carousel-track::-webkit-scrollbar{display:none;}
+
+  /* staggered entrance, triggered once the wrap scrolls into view */
+  .carousel-wrap .job-card,
+  .carousel-wrap .video-card{opacity:0;}
+  .carousel-wrap.in .job-card{animation:fadeInUp .65s cubic-bezier(.2,.7,.2,1) forwards;}
+  .carousel-wrap.in .job-card:nth-child(1){animation-delay:.04s;}
+  .carousel-wrap.in .job-card:nth-child(2){animation-delay:.1s;}
+  .carousel-wrap.in .job-card:nth-child(3){animation-delay:.16s;}
+  .carousel-wrap.in .job-card:nth-child(4){animation-delay:.22s;}
+  .carousel-wrap.in .job-card:nth-child(5){animation-delay:.28s;}
+  .carousel-wrap.in .job-card:nth-child(6){animation-delay:.34s;}
+  .carousel-wrap.in .video-card{animation:fadeInUp .65s cubic-bezier(.2,.7,.2,1) forwards;}
+  .carousel-wrap.in .video-card:nth-child(1){animation-delay:.04s;}
+  .carousel-wrap.in .video-card:nth-child(2){animation-delay:.1s;}
+  .carousel-wrap.in .video-card:nth-child(3){animation-delay:.16s;}
+  .carousel-wrap.in .video-card:nth-child(4){animation-delay:.22s;}
+  .carousel-wrap.in .video-card:nth-child(5){animation-delay:.28s;}
+  .carousel-wrap.in .video-card:nth-child(6){animation-delay:.34s;}
+
+  .job-card{
+    scroll-snap-align:start;
+    flex:0 0 auto;
+    width:272px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:0;
+    position:relative;
+    overflow:hidden;
+    transition:transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease, border-color .45s ease;
+  }
+  .job-card:hover{
+    transform:translateY(-10px) scale(1.015);
+    box-shadow:0 30px 56px -24px rgba(123,125,252,.55), 0 0 0 1px rgba(123,125,252,.25);
+    border-color:transparent;
+  }
+  .job-card-accent{
+    height:5px;width:100%;
+    background:linear-gradient(90deg, var(--purple), var(--yellow));
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform .55s cubic-bezier(.2,.8,.2,1);
+  }
+  .job-card:hover .job-card-accent{transform:scaleX(1);}
+  .job-body{padding:24px 22px 22px;}
+  .job-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;}
+  .job-icon{
+    width:46px;height:46px;border-radius:13px;
+    display:flex;align-items:center;justify-content:center;
+    background:#eef0ff;color:var(--purple);
+    position:relative;
+    transition:background .4s ease,color .4s ease,transform .4s ease;
+  }
+  .job-icon::before{
+    content:"";position:absolute;inset:-8px;border-radius:18px;
+    background:radial-gradient(circle, rgba(123,125,252,.35), transparent 70%);
+    opacity:0;transition:opacity .4s ease;
+  }
+  .job-card:hover .job-icon{background:var(--purple);color:#fff;transform:rotate(-8deg) scale(1.08);}
+  .job-card:hover .job-icon::before{opacity:1;}
+  .job-icon svg{width:22px;height:22px;position:relative;z-index:1;}
+  .bookmark{width:18px;height:18px;color:var(--yellow);cursor:pointer;transition:transform .3s ease;}
+  .bookmark:hover{transform:scale(1.25) rotate(-8deg);}
+  .job-card h4{font-size:16.5px;font-weight:800;margin:0 0 4px;line-height:1.35;min-height:44px;}
+  .job-org{font-size:13.5px;color:var(--muted);margin:0 0 12px;}
+  .badge{
+    display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.05em;
+    background:var(--yellow-soft);color:#8a6d00;
+    padding:5px 12px;border-radius:999px;margin-bottom:14px;
+  }
+  .badge::before{content:"";width:6px;height:6px;border-radius:50%;background:#8a6d00;flex:none;}
+  .job-role{font-size:13px;color:var(--ink);line-height:1.5;margin:0 0 16px;}
+  .job-role b{font-weight:800;}
+  .job-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+  .job-meta span{
+    display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);
+    background:#f7f7ff;padding:6px 10px;border-radius:8px;
+    transition:background .35s ease, color .35s ease;
+  }
+  .job-card:hover .job-meta span{background:#eef0ff;}
+  .job-meta svg{width:13px;height:13px;flex:none;color:var(--purple);}
+  .job-more{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    width:100%;
+    font-weight:800;font-size:14px;color:var(--purple);
+    text-decoration:none;
+    background:#f1f1ff;
+    padding:12px 0;border-radius:12px;
+    transition:background .35s ease,color .35s ease,gap .3s ease;
+  }
+  .job-more svg{width:15px;height:15px;transition:transform .3s ease;}
+  .job-card:hover .job-more{background:var(--purple);color:#fff;gap:11px;}
+  .job-card:hover .job-more svg{transform:translateX(4px);}
+
+  .carousel-nav{
+    position:absolute;top:calc(50% - 22px);
+    width:46px;height:46px;border-radius:50%;
+    background:#fff;border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;box-shadow:0 12px 26px -14px rgba(28,27,58,.4);
+    z-index:3;color:var(--purple);
+    transition:background .35s ease,color .35s ease,box-shadow .35s ease;
+    animation:navBobRight 2.4s ease-in-out infinite;
+  }
+  .carousel-nav.prev{animation-name:navBobLeft;}
+  @keyframes navBobRight{0%,100%{transform:translateX(0);}50%{transform:translateX(5px);}}
+  @keyframes navBobLeft{0%,100%{transform:translateX(0);}50%{transform:translateX(-5px);}}
+  .carousel-nav:hover{
+    background:var(--purple);
+    color:#fff;
+    box-shadow:0 16px 34px -10px rgba(123,125,252,.65);
+    animation-play-state:paused;
+  }
+  .carousel-nav.prev{left:-10px;}
+  .carousel-nav.next{right:-10px;}
+  .carousel-nav svg{width:18px;height:18px;}
+
+  .view-all{
+    display:flex;justify-content:center;margin-top:20px;
+  }
+  .view-all a{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--purple);color:#fff;font-weight:800;font-size:15px;
+    padding:15px 34px;border-radius:14px;text-decoration:none;
+    box-shadow:0 16px 30px -12px rgba(123,125,252,.55);
+    transition:transform .3s ease, box-shadow .3s ease, background .3s ease;
+  }
+  .view-all a:hover{transform:translateY(-3px);box-shadow:0 20px 40px -12px rgba(123,125,252,.75), 0 0 30px -6px rgba(255,205,0,.5);}
+  .view-all svg{width:16px;height:16px;transition:transform .3s ease;}
+  .view-all a:hover svg{transform:translateX(5px);}
+
+  @media(max-width:640px){
+    .carousel-nav{display:none;}
+  }
+
+  /* SECTION 3 — VIDEOS */
+  .videos{
+    padding:24px 0 0;
+    background:#fff;
+  }
+  .video-track{
+    display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:8px 4px 10px;scrollbar-width:none;margin-top:44px;
+  }
+  .video-track::-webkit-scrollbar{display:none;}
+  .video-card{
+    scroll-snap-align:start;
+    flex:0 0 calc((100% - 44px)/3);
+    min-width:240px;
+    border-radius:18px;overflow:hidden;
+    background:#0e0d24;
+    position:relative;cursor:pointer;
+    box-shadow:0 16px 34px -18px rgba(28,27,58,.4);
+    transition:transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease;
+  }
+  .video-card:hover{transform:translateY(-8px);box-shadow:0 26px 50px -18px rgba(123,125,252,.5), 0 0 0 1px rgba(123,125,252,.3);}
+  .video-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:#111;}
+  .video-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease, filter .6s ease;}
+  .video-card:hover .video-thumb img{transform:scale(1.08);filter:brightness(.75);}
+  .video-thumb::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(14,13,36,0) 45%, rgba(14,13,36,.85) 100%);
+  }
+  .play-btn{
+    position:absolute;top:50%;left:50%;
+    width:74px;height:52px;border-radius:16px;
+    transform:translate(-50%,-50%) scale(1);
+    background:#FF0000;
+    display:flex;align-items:center;justify-content:center;
+    z-index:2;
+    box-shadow:0 0 0 0 rgba(255,0,0,.5), 0 12px 26px -8px rgba(255,0,0,.55);
+    animation:pulseRing 2.4s ease-out infinite;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .video-card:hover .play-btn{
+    transform:translate(-50%,-50%) scale(1.1);
+    box-shadow:0 0 0 0 rgba(255,0,0,.5), 0 16px 34px -6px rgba(255,0,0,.7);
+  }
+  .play-btn svg{width:28px;height:28px;color:#fff;margin-left:4px;}
+  @keyframes pulseRing{
+    0%{box-shadow:0 0 0 0 rgba(255,0,0,.45), 0 12px 26px -8px rgba(255,0,0,.55);}
+    70%{box-shadow:0 0 0 16px rgba(255,0,0,0), 0 12px 26px -8px rgba(255,0,0,.55);}
+    100%{box-shadow:0 0 0 0 rgba(255,0,0,0), 0 12px 26px -8px rgba(255,0,0,.55);}
+  }
+  .video-title{
+    position:absolute;left:16px;right:16px;bottom:14px;z-index:2;
+    color:#fff;font-weight:800;font-size:15px;line-height:1.4;
+  }
+  .yt-tag{
+    position:absolute;top:14px;left:14px;z-index:2;
+    display:inline-flex;align-items:center;gap:6px;
+    background:rgba(0,0,0,.55);color:#fff;font-size:11px;font-weight:800;
+    padding:6px 10px;border-radius:999px;backdrop-filter:blur(4px);
+  }
+  .yt-tag svg{width:13px;height:13px;color:#ff0000;}
+
+  .dots{display:flex;justify-content:center;gap:9px;margin:26px 0 60px;}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--line);cursor:pointer;transition:all .3s ease;}
+  .dot.active{width:26px;border-radius:5px;background:var(--purple);}
+
+  @media(max-width:1024px){
+    .video-card{flex:0 0 calc((100% - 22px)/2);}
+  }
+  @media(max-width:640px){
+    .video-card{flex:0 0 100%;}
+    .videos .carousel-nav{display:none;}
+  }
+
+  /* bottom footer banner */
+  .foot-banner{
+    background:linear-gradient(115deg,var(--purple),var(--purple));
+    padding:56px 0 0;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+  }
+  .foot-top{
+    position:relative;
+    display:flex;align-items:center;justify-content:space-between;gap:28px;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:26px;
+    padding:36px 44px;
+    margin-bottom:56px;
+    flex-wrap:wrap;
+    overflow:hidden;
+    transition:border-color .4s ease, background .4s ease, box-shadow .4s ease;
+  }
+  .foot-top::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 88% 15%, rgba(255,205,0,.22), transparent 55%);
+    pointer-events:none;
+  }
+  .foot-top::after{
+    content:"";position:absolute;top:0;left:-160%;width:55%;height:100%;
+    background:linear-gradient(115deg, transparent, rgba(255,205,0,.4), transparent);
+    transform:skewX(-20deg);
+    animation:shimmerSweep 4.2s ease-in-out infinite;
+    pointer-events:none;
+  }
+  .foot-top:hover{
+    background:rgba(255,255,255,.1);
+    border-color:rgba(255,205,0,.5);
+    box-shadow:0 0 70px -8px rgba(255,205,0,.6), 0 0 0 1px rgba(255,205,0,.35);
+  }
+  .foot-top-left{display:flex;align-items:center;gap:22px;position:relative;z-index:1;}
+  .target-icon-wrap{
+    width:150px;height:150px;flex:none;border-radius:22px;
+    background:rgba(255,255,255,.12);
+    display:flex;align-items:center;justify-content:center;
+    transition:background .4s ease, transform .4s ease;
+    overflow:hidden;
+    animation:ctaFloat 3.6s ease-in-out infinite;
+  }
+  .target-icon-wrap img{width:100%;height:100%;object-fit:contain;padding:4px;}
+  .foot-top:hover .target-icon-wrap{background:var(--yellow);transform:translateY(-4px);}
+  .foot-top h3{margin:0;font-size:clamp(19px,2.4vw,25px);font-weight:900;line-height:1.4;position:relative;z-index:1;}
+  .foot-top-btns{display:flex;gap:14px;flex-wrap:wrap;position:relative;z-index:1;}
+  .btn-solid{
+    position:relative;overflow:hidden;
+    background:var(--yellow);color:#000;font-weight:900;font-size:14px;
+    padding:15px 28px;border-radius:12px;border:none;cursor:pointer;
+    display:inline-flex;align-items:center;gap:8px;white-space:nowrap;flex:none;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .btn-solid:hover{transform:translateY(-3px);box-shadow:0 16px 30px -10px rgba(0,0,0,.45), 0 0 24px -4px rgba(255,205,0,.85);}
+  .btn-solid span{position:relative;z-index:1;}
+  .btn-solid-shine{
+    position:absolute; top:0; left:-60%; width:45%; height:100%;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,.85), transparent);
+    transform:skewX(-20deg);
+    transition:left .75s ease;
+  }
+  .btn-solid:hover .btn-solid-shine{left:130%;}
+  .btn-ghost{
+    background:transparent;color:#fff;font-weight:900;font-size:14px;
+    padding:15px 28px;border-radius:12px;border:1.5px solid rgba(255,255,255,.6);cursor:pointer;
+    white-space:nowrap;flex:none;
+    transition:background .3s ease, transform .3s ease, border-color .3s ease;
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,.16);transform:translateY(-3px);border-color:#fff;}
+
+  .foot-cols {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.3fr;
+  gap: 30px;
+  padding-bottom: 34px;
+  color: #ffffff;
+}
+
+.foot-brand-sub {
+  color: #ffffff;
+  font-size: 13.5px;
+  line-height: 1.7;
+  margin: 0 0 18px;
+}
+
+.foot-logo-img {
+  height: 60px;
+  width: auto;
+  margin-bottom: 14px;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .25));
+}
+
+.socials {
+  display: flex;
+  gap: 10px;
+}
+
+.socials a {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: background .3s ease, transform .3s ease, color .3s ease;
+}
+
+.socials a:hover {
+  background: var(--yellow);
+  color: #000000;
+  transform: translateY(-3px);
+}
+
+.socials svg {
+  width: 25px;
+  height: 25px;
+}
+
+.foot-cols h5 {
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+  color: #ffffff;
+}
+
+.foot-cols ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  color: #ffffff;
+}
+
+.foot-cols a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color .25s ease, padding-left .25s ease;
+}
+
+.foot-cols a:hover {
+  color: var(--yellow);
+  padding-left: 4px;
+}
+
+.news-p {
+  color: #ffffff;
+  font-size: 14px;
+  margin: 0 0 16px;
+  line-height: 1.6;
+}
+
+.news-form {
+  display: flex;
+  align-items: stretch;
+  border-radius: 10px;
+  overflow: hidden;
+  border: none;
+  background: #ffffff;
+}
+
+.news-form input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: #333333; /* Text typed inside input stays dark for contrast against white background */
+  padding: 12px 16px;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  outline: none;
+}
+
+.news-form input::placeholder {
+  color: #888888;
+}
+
+.news-form button {
+  border: none;
+  background: #ffcc00;
+  color: #000000;
+  padding: 0 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.news-form button:hover {
+  opacity: 0.88;
+}
+
+.news-form svg {
+  width: 16px;
+  height: 16px;
+}
+
+.foot-bottom {
+  border-top: 1px solid rgba(255, 255, 255, .15);
+  padding: 20px 0;
+  text-align: center;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.foot-bottom a {
+  color: #ffffff;
+  text-decoration: none;
+}
+  @media(max-width:900px){
+    .foot-cols{grid-template-columns:1fr 1fr;}
+    .foot-top{flex-direction:column;text-align:center;}
+    .foot-top-left{flex-direction:column;}
+  }
+  @media(max-width:560px){
+    .foot-cols{grid-template-columns:1fr;}
+    .foot-top{padding:28px 22px;}
+    .job-card{width:240px;}
+  }
+
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(10,9,30,.85);
+    display:none;align-items:center;justify-content:center;z-index:999;
+    padding:24px; backdrop-filter:blur(4px);
+  }
+  .modal-overlay.open{display:flex;animation:fadeIn .3s ease;}
+  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+  .modal-box{
+    width:100%;max-width:860px;aspect-ratio:16/9;
+    background:#000;border-radius:16px;overflow:hidden;position:relative;
+    box-shadow:0 40px 80px -20px rgba(0,0,0,.7);
+    transform:scale(.92);animation:pop .35s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  @keyframes pop{to{transform:scale(1);}}
+  .modal-box iframe{width:100%;height:100%;border:0;}
+  .modal-close{
+    position:absolute;top:-46px;right:0;
+    width:36px;height:36px;border-radius:50%;
+    background:rgba(255,255,255,.15);color:#fff;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:background .3s ease, transform .3s ease;
+  }
+  .modal-close:hover{background:var(--yellow);color:#000;transform:rotate(90deg);}
+  .modal-close svg{width:18px;height:18px;}
+
+  /* ================= NEW ADDITIONS: animations / hover / button effects for Hero → Who We Are section ================= */
+  @keyframes fxFadeUp{ from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+  @keyframes fxUnderline{ from{transform:scaleX(0);} to{transform:scaleX(1);} }
+
+  .fx-hero-in{ animation:fxFadeUp .8s cubic-bezier(.2,.7,.2,1) both; }
+  .fx-hero-in.fx-d1{animation-delay:.05s;}
+  .fx-hero-in.fx-d2{animation-delay:.18s;}
+  .fx-hero-in.fx-d3{animation-delay:.3s;}
+  .fx-hero-in.fx-d4{animation-delay:.42s;}
+
+  .fx-underline{ display:inline-block; transform-origin:left; animation:fxUnderline .9s .55s cubic-bezier(.2,.8,.2,1) both; }
+
+  .fx-avatar{ transition: transform .3s ease, box-shadow .3s ease; }
+  .fx-avatar:hover{ transform: translateY(-4px) scale(1.15); box-shadow:0 10px 20px -6px rgba(123,125,252,.55); position:relative; z-index:5; }
+.fx-btn-primary {
+  transition: transform .3s ease, box-shadow .3s ease, letter-spacing .3s ease, background-color .3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.fx-btn-primary:hover {
+  background-color: #7b7dfc;
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px -10px rgba(128, 131, 254, .55);
+  letter-spacing: .02em;
+  color: #ffffff;
+}
+
+.fx-btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(123,125,252,.6), transparent);
+  transform: skewX(-20deg);
+  transition: left .7s ease;
+  pointer-events: none;
+}
+
+.fx-btn-primary:hover::after {
+  left: 130%;
+}
+
+  .fx-btn-outline{ transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease; }
+  .fx-btn-outline:hover{ transform: translateY(-3px); box-shadow:0 12px 24px -12px rgba(123,125,252,.6); background-color:#7b7dfc!important;color:#fff !important; }
+
+  .fx-btn-yellow{ transition: transform .3s ease, box-shadow .3s ease; position:relative; overflow:hidden; }
+  .fx-btn-yellow:hover{ transform: translateY(-3px); box-shadow:0 14px 26px -10px rgba(255,205,0,.6); }
+  .fx-btn-yellow::after{ content:""; position:absolute; top:0; left:-60%; width:40%; height:100%; background:linear-gradient(120deg, transparent, rgba(255,255,255,.7), transparent); transform:skewX(-20deg); transition:left .7s ease; pointer-events:none; }
+  .fx-btn-yellow:hover::after{ left:130%; }
+
+  .fx-reveal{ opacity:0; transform:translateY(26px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+  .fx-reveal.fx-in{ opacity:1; transform:translateY(0); }
+  .fx-reveal.fx-r1{transition-delay:.05s;}
+  .fx-reveal.fx-r2{transition-delay:.12s;}
+  .fx-reveal.fx-r3{transition-delay:.19s;}
+
+  .fx-step{ transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease; }
+  .fx-step:hover{ transform: translateY(-4px) scale(1.01); box-shadow:0 16px 30px -16px rgba(28,27,58,.25); }
+  .fx-number{ transition: transform .3s ease; }
+  .fx-step:hover .fx-number{ transform: scale(1.15) rotate(-8deg); }
+
+  .fx-media-hover{ overflow:hidden; }
+  .fx-media-hover img{ transition: transform .55s cubic-bezier(.2,.8,.2,1); }
+  .fx-media-hover:hover img{ transform: scale(1.07); }
+
+  .fx-service-card{ transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease; }
+  .fx-service-card:hover{ transform: translateY(-8px); box-shadow:0 26px 48px -22px rgba(123,125,252,.4); }
+
+  .fx-purpose-card{ transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease; }
+  .fx-purpose-card:hover{ transform: translateY(-6px); box-shadow:0 22px 42px -20px rgba(28,27,58,.2); }
+  .fx-icon-circle{ transition: transform .35s ease; }
+  .fx-purpose-card:hover .fx-icon-circle{ transform: rotate(-10deg) scale(1.1); }
+
+  #serviceTabs .nav-link{ transition:color .3s ease, transform .3s ease; }
+  #serviceTabs .nav-link:hover{ color:var(--purple) !important; transform:translateY(-2px); }
+/* Smooth transition */
+header a,
+header .btn,
+.dropdown-item {
+    transition: all 0.3s ease;
+}
+
+/* Navbar links */
+header nav a:hover {
+    color: #ffffff !important;
+}
+
+/* Login button */
+header .btn.bg-white:hover {
+    background-color: #ffff !important;
+    color: #000000 !important;
+    transform: translateY(-2px);
+}
+
+header .btn.bg-white:hover i {
+    color: #7b7dfc !important;
+}
+
+/* Get Started button */
+#getStartedDropdown:hover {
+    background-color: #ffcd00 !important;
+    color: #000000 !important;
+    transform: translateY(-2px);
+}
+
+/* Dropdown items */
+.dropdown-item:hover {
+    background-color: #7d7cfc !important;
+    color: #ffffff !important;
+}
+
+.dropdown-item:hover i {
+    color: #ffffff !important;
+}
+
+/* Slight animation for all buttons */
+header .btn:hover {
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15) !important;
+}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+    </style>
+<body style="font-family: 'Lato', sans-serif; background-color: #ffffff; color: #0f172a; overflow-x: hidden;">
+
+ <!-- NAVBAR -->
+<header class="py-3 position-sticky top-0 shadow-sm" style="background-color: #7d7cfc; z-index: 1030;">
+  <div class="container-fluid px-md-5 d-flex justify-content-between align-items-center">
+
+    <a href="#" class="text-decoration-none d-flex flex-column">
+      <img class="foot-logo-img" src="flexwork_logo.png" alt="FlexWork logo">
+    </a>
+
+    <nav class="d-none d-lg-flex align-items-center gap-4">
+      <a href="#" class="text-decoration-none fw-bold text-dark" style="font-size: 15px;">Our Services</a>
+      <a href="#" class="text-decoration-none fw-bold text-dark" style="font-size: 15px;">Who We Are</a>
+      <a href="#" class="text-decoration-none fw-bold text-dark" style="font-size: 15px;">How We Work</a>
+      <a href="#" class="text-decoration-none fw-bold text-dark" style="font-size: 15px;">Job Postings</a>
+    </nav>
+
+   <div class="d-flex align-items-center gap-2">
+  
+  <a href="#" class="btn bg-white border-0 fw-bold d-inline-flex align-items-center gap-2 px-3 py-2 shadow-sm" 
+     style="font-size: 13.5px; color: #000000; border-radius: 8px;">
+    Login <i class="fa-solid fa-circle-arrow-right" style="font-size: 13px; color: #000000;"></i>
+  </a>
+
+  <div class="dropdown">
+    <button class="btn border-0 fw-bold d-inline-flex align-items-center gap-2 px-3 py-2 shadow-sm dropdown-toggle" 
+            type="button" 
+            id="getStartedDropdown" 
+            data-bs-toggle="dropdown" 
+            aria-expanded="false" 
+            style="font-size: 13.5px; background-color: #ffcd00; color: #000000; border-radius: 8px;">
+      Get Started
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg p-2 rounded-3 mt-2" 
+        aria-labelledby="getStartedDropdown" 
+        style="background-color: #f3f0f7; min-width: 210px;">
+      
+      <li>
+        <a class="dropdown-item fw-bold d-flex align-items-center gap-2 py-2 px-3 rounded-2" 
+           href="#" 
+           style="font-size: 13.5px; color: #1e293b;">
+          <i class="fa-solid fa-user" style="font-size: 13px;"></i> Register as Candidate
+        </a>
+      </li>
+      
+      <li>
+        <a class="dropdown-item fw-bold d-flex align-items-center gap-2 py-2 px-3 rounded-2" 
+           href="#" 
+           style="font-size: 13.5px; color: #1e293b;">
+          <i class="fa-solid fa-user" style="font-size: 13px;"></i> Register as Employer
+        </a>
+      </li>
+
+    </ul>
+  </div>
+
+</div>
+
+  </div>
+</header>
+ <!-- HERO SECTION -->
+<section class="position-relative w-100 d-flex align-items-center py-5 overflow-hidden" style="min-height: 560px;">
+  <img src="hero_image.png" 
+       alt="Hero Background" 
+       class="position-absolute top-0 end-0 h-100 w-100" 
+       style="object-fit:contain; object-position: center right; z-index: 0;">
+
+<div class="position-absolute top-0 start-0 w-100 h-100" 
+     style="background: radial-gradient(circle at left center, #ffffff 0%, #ffffff 35%, rgba(255, 255, 255, 0) 70%); z-index: 1; pointer-events: none;">
+</div>
+
+  <div class="container position-relative" style="z-index: 2;">
+    <div class="row align-items-center">
+
+        <div class="col-12 col-lg-6 position-relative" style="z-index: 2; max-width: 520px;">
+          
+          <h1 class="text-dark mb-3 fx-hero-in fx-d1" style="font-size: 46px; font-weight: 900; line-height: 1.15; letter-spacing: -0.5px;">
+            Find Work & Hire Talent All in 
+            <span class="position-relative d-inline-block" style="color: #7b7dfc;">
+              One Platform
+              <span class="position-absolute start-0 bottom-0 w-100 fx-underline" style="height: 4px; background-color: #ffcd00; border-radius: 2px; bottom: -4px;"></span>
+            </span>
+          </h1>
+
+          <p class="mb-4 fx-hero-in fx-d2" style="font-size: 18px; color: #64748b; line-height: 1.6; font-weight: 400;">
+            FlexWork – The World's Trusted Remote Talent Marketplace, helping you connect with global talent and remote jobs that fit your needs flexible, fast, and hassle-free.
+          </p>
+
+          <!-- Buttons -->
+          <div class="d-flex gap-3 mb-4 fx-hero-in fx-d3">
+            <a href="#" class="btn border-0 fw-bold d-inline-flex align-items-center gap-2 px-4 py-3 fx-btn-yellow" style="background-color: #ffcd00; color: #000000; border-radius: 8px; font-size: 14px;">
+              Apply For Job &rarr;
+            </a>
+            <a href="#" class="btn bg-white fw-bold d-inline-flex align-items-center gap-2 px-4 py-3 fx-btn-outline" style="color: #7b7dfc; border: 1px solid #dbe0fe; border-radius: 8px; font-size: 14px;">
+              Post A Job &rarr;
+            </a>
+          </div>
+          <div class="d-flex align-items-center gap-2 fx-hero-in fx-d4" style="font-size: 13px; color: #0f172a;">
+            <div class="d-flex">
+              <img src="https://i.pravatar.cc/100?img=5" alt="User" class="rounded-circle border border-2 border-white fx-avatar" style="width: 26px; height: 26px; object-fit: cover;">
+              <img src="https://i.pravatar.cc/100?img=12" alt="User" class="rounded-circle border border-2 border-white fx-avatar" style="width: 26px; height: 26px; object-fit: cover; margin-left: -8px;">
+              <img src="https://i.pravatar.cc/100?img=9" alt="User" class="rounded-circle border border-2 border-white fx-avatar" style="width: 26px; height: 26px; object-fit: cover; margin-left: -8px;">
+            </div>
+            <span>Over <strong style="font-weight: 700;">300,000+</strong> freelancers trusted by clients worldwide.</span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+  
+  <section class="py-5">
+    <div class="container">
+      <div class="p-4 p-md-5 rounded-5 border bg-white shadow-sm" style="border-color: #f1f5f9 !important;">
+        
+        <!-- Yellow Header Banner with Interactive Nav Pills -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 p-3 px-md-4 mb-5 rounded-4 fx-reveal" 
+             style="background-color: #ffcd00;">
+          <h2 class="m-0 text-dark fw-bold" style="font-size: 24px; font-weight: 900; letter-spacing: -0.5px;">
+            How FlexWork Works
+          </h2>
+          <ul class="nav nav-pills bg-white p-1 rounded-pill shadow-sm" id="howWorksTabs" role="tablist" style="gap: 4px;">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link tab-pill-btn active" id="remote-jobs-tab" data-bs-toggle="pill" data-bs-target="#remote-jobs" type="button" role="tab">
+                Find Remote Jobs
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link tab-pill-btn" id="project-talent-tab" data-bs-toggle="pill" data-bs-target="#project-talent" type="button" role="tab">
+                Find Project Talent
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link tab-pill-btn" id="grow-skills-tab" data-bs-toggle="pill" data-bs-target="#grow-skills" type="button" role="tab">
+                Grow Your Skills
+              </button>
+            </li>
+          </ul>
+        </div>
+
+<div class="tab-content" id="howWorksTabContent">
+
+  <div class="tab-pane fade show active" id="remote-jobs" role="tabpanel">
+    <div class="row align-items-center g-4 g-lg-5" style="min-height: 500px;">
+
+      <div class="col-12 col-lg-6 text-center">
+        <div class="rounded-4 overflow-hidden shadow-sm mx-auto fx-media-hover fx-reveal" style="max-width: 480px; height: 440px; background-color: #f8fafc;">
+          <img src="remote_job.png" 
+               alt="Find Remote Jobs View" 
+               class="w-100 h-100" 
+               style="object-fit: cover; object-position: center;">
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6 ps-lg-4 d-flex flex-column justify-content-between" style="min-height: 440px;">
+        <div>
+          <h2 class="fw-bold text-dark mb-2" style="font-size: 36px; font-weight: 900; letter-spacing: -0.5px;">
+            Find Remote Jobs
+          </h2>
+          <p class="mb-3" style="font-size: 16px; color: #64748b; line-height: 1.5; min-height: 42px;">
+            Start freelancing in 3 easy steps and build your remote career from anywhere with verified projects and global clients.
+          </p>
+
+          <div class="position-relative d-flex flex-column gap-3 my-3">
+            <div class="position-absolute start-0 top-0 bottom-0 ms-3" 
+                 style="width: 2px; border-left: 2px dashed #cbd5e1; z-index: 0; transform: translateX(-50%); top: 15px !important; bottom: 15px !important;"></div>
+
+            <div class="d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-dark shadow-sm fx-number" style="width: 32px; height: 32px; background-color: #ffcd00; font-size: 14px; flex-shrink: 0;">1</div>
+              <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step" style="background-color: #fffdf5; border: 1px solid #fef3c7; min-height: 76px;">
+                <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background-color: #fef3c7; color: #ffcd00; flex-shrink: 0;">
+                  <i class="fa-regular fa-user" style="font-size: 16px;"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold text-dark m-0 mb-1" style="font-size: 16px;">Create Your Profile</h5>
+                  <p class="m-0 text-muted" style="font-size: 14px; line-height: 1.3;">Sign up and tell us about your skills and availability.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white shadow-sm fx-number" style="width: 32px; height: 32px; background-color: #7b7dfc; font-size: 14px; flex-shrink: 0;">2</div>
+              <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step" style="background-color: #f5f3ff; border: 1px solid #ede9fe; min-height: 76px;">
+                <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background-color: #ede9fe; color: #7b7dfc; flex-shrink: 0;">
+                  <i class="fa-solid fa-briefcase" style="font-size: 16px;"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold text-dark m-0 mb-1" style="font-size: 16px;">Get Matched with Projects</h5>
+                  <p class="m-0 text-muted" style="font-size: 14px; line-height: 1.3;">Our AI + Agent model connects you to high-paying gigs.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white shadow-sm fx-number" style="width: 32px; height: 32px; background-color: #e91e63; font-size: 14px; flex-shrink: 0;">3</div>
+              <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step" style="background-color: #fdf2f8; border: 1px solid #fbcfe8; min-height: 76px;">
+                <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background-color: #fbcfe8; color: #e91e63; flex-shrink: 0;">
+                  <i class="fa-solid fa-wallet" style="font-size: 16px;"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold text-dark m-0 mb-1" style="font-size: 16px;">Work Your Way</h5>
+                  <p class="m-0 text-muted" style="font-size: 14px; line-height: 1.3;">Accept projects, work remotely, and get paid directly.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-2">
+          <a href="#" class="btn border-0 fw-bold d-inline-flex align-items-center gap-2 px-4 py-2 text-white fx-btn-primary" style="background-color: #7b7dfc; border-radius: 8px; font-size: 14px;">
+            Explore Jobs &rarr;
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="project-talent" role="tabpanel">
+    <div class="row align-items-center g-4 g-lg-5" style="min-height: 500px;">
+
+      <div class="col-12 col-lg-6 text-center">
+        <div class="rounded-4 overflow-hidden shadow-sm mx-auto fx-media-hover fx-reveal" style="max-width: 480px; height: 440px; background-color: #f8fafc;">
+          <img src="find_project_talent.png" 
+               alt="Find Project Talent View" 
+               class="w-100 h-100" 
+               style="object-fit: contain; object-position: center;">
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6 ps-lg-4 d-flex flex-column justify-content-between" style="min-height: 440px;">
+        <div>
+          <h2 class="fw-bold text-dark mb-2" style="font-size: 36px; font-weight: 900; letter-spacing: -0.5px;">
+            Find Project Talent
+          </h2>
+          <p class="mb-3" style="font-size: 16px; color: #64748b; line-height: 1.5; min-height: 42px;">
+            Scale your team with vetted professionals matched to your project requirements and timelines.
+          </p>
+
+          <div class="position-relative d-flex flex-column gap-3 my-3">
+            <div class="position-absolute start-0 top-0 bottom-0 ms-3" 
+                 style="width: 2px; border-left: 2px dashed #cbd5e1; z-index: 0; transform: translateX(-50%); top: 15px !important; bottom: 15px !important;"></div>
+
+            <div class="d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-dark shadow-sm fx-number" style="width: 32px; height: 32px; background-color: #ffcd00; font-size: 14px; flex-shrink: 0;">1</div>
+              <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step" style="background-color: #fffdf5; border: 1px solid #fef3c7; min-height: 76px;">
+                <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background-color: #fef3c7; color: #ffcd00; flex-shrink: 0;">
+                  <i class="fa-regular fa-file-lines" style="font-size: 16px;"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold text-dark m-0 mb-1" style="font-size: 16px;">Post Your Needs</h5>
+                  <p class="m-0 text-muted" style="font-size: 14px; line-height: 1.3;">Describe your project scope, skills and budget.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white shadow-sm fx-number" style="width: 32px; height: 32px; background-color: #7b7dfc; font-size: 14px; flex-shrink: 0;">2</div>
+              <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step" style="background-color: #f5f3ff; border: 1px solid #ede9fe; min-height: 76px;">
+                <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background-color: #ede9fe; color: #7b7dfc; flex-shrink: 0;">
+                  <i class="fa-solid fa-user-group" style="font-size: 16px;"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold text-dark m-0 mb-1" style="font-size: 16px;">Review Matches</h5>
+                  <p class="m-0 text-muted" style="font-size: 14px; line-height: 1.3;">Evaluate curated candidates with portfolios and ratings.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white shadow-sm fx-number" style="width: 32px; height: 32px; background-color: #e91e63; font-size: 14px; flex-shrink: 0;">3</div>
+              <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step" style="background-color: #fdf2f8; border: 1px solid #fbcfe8; min-height: 76px;">
+                <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background-color: #fbcfe8; color: #e91e63; flex-shrink: 0;">
+                  <i class="fa-solid fa-rocket" style="font-size: 16px;"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold text-dark m-0 mb-1" style="font-size: 16px;">Start Quickly</h5>
+                  <p class="m-0 text-muted" style="font-size: 14px; line-height: 1.3;">Kick off with contracts, milestones, and payments in one place.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-2">
+          <a href="#" class="btn border-0 fw-bold d-inline-flex align-items-center gap-2 px-4 py-2 text-white fx-btn-primary" style="background-color: #7b7dfc; border-radius: 8px; font-size: 14px;">
+            Explore &rarr;
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="grow-skills" role="tabpanel">
+    <div class="row align-items-center g-4 g-lg-5" style="min-height: 500px;">
+
+      <div class="col-12 col-lg-6 text-center">
+        <div class="rounded-4 overflow-hidden shadow-sm mx-auto fx-media-hover fx-reveal" style="max-width: 480px; height: 440px; background-color: #f8fafc;">
+          <img src="grow_your_skills.png" 
+               alt="Grow Your Skills View" 
+               class="w-100 h-100" 
+               style="object-fit: cover; object-position: center;">
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6 ps-lg-4 d-flex flex-column justify-content-between" style="min-height: 440px;">
+        <div>
+          <h2 class="fw-bold text-dark mb-2" style="font-size: 36px; font-weight: 900; letter-spacing: -0.5px;">
+            Grow Your Skills
+          </h2>
+          <p class="mb-3" style="font-size: 16px; color: #64748b; line-height: 1.5; min-height: 42px;">
+            Advance your career with guided learning, hands-on projects, and expert feedback.
+          </p>
+
+          <div class="position-relative d-flex flex-column gap-3 my-3">
+            <div class="position-absolute start-0 top-0 bottom-0 ms-3" 
+                 style="width: 2px; border-left: 2px dashed #cbd5e1; z-index: 0; transform: translateX(-50%); top: 15px !important; bottom: 15px !important;"></div>
+
+            <div class="d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-dark shadow-sm fx-number" style="width: 32px; height: 32px; background-color: #ffcd00; font-size: 14px; flex-shrink: 0;">1</div>
+              <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step" style="background-color: #fffdf5; border: 1px solid #fef3c7; min-height: 76px;">
+                <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background-color: #fef3c7; color: #ffcd00; flex-shrink: 0;">
+                  <i class="fa-solid fa-graduation-cap" style="font-size: 16px;"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold text-dark m-0 mb-1" style="font-size: 16px;">Choose Your Learning Path</h5>
+                  <p class="m-0 text-muted" style="font-size: 14px; line-height: 1.3;">Pick from flexible courses or guided mentorships to build practical skills.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white shadow-sm fx-number" style="width: 32px; height: 32px; background-color: #7b7dfc; font-size: 14px; flex-shrink: 0;">2</div>
+              <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step" style="background-color: #f5f3ff; border: 1px solid #ede9fe; min-height: 76px;">
+                <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background-color: #ede9fe; color: #7b7dfc; flex-shrink: 0;">
+                  <i class="fa-solid fa-laptop-code" style="font-size: 16px;"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold text-dark m-0 mb-1" style="font-size: 16px;">Learn from Real Industry Experts</h5>
+                  <p class="m-0 text-muted" style="font-size: 14px; line-height: 1.3;">Gain insights and practical skills from professionals who've done the work.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white shadow-sm fx-number" style="width: 32px; height: 32px; background-color: #e91e63; font-size: 14px; flex-shrink: 0;">3</div>
+              <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step" style="background-color: #fdf2f8; border: 1px solid #fbcfe8; min-height: 76px;">
+                <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background-color: #fbcfe8; color: #e91e63; flex-shrink: 0;">
+                  <i class="fa-solid fa-award" style="font-size: 16px;"></i>
+                </div>
+                <div>
+                  <h5 class="fw-bold text-dark m-0 mb-1" style="font-size: 16px;">Start Your Upskilling Journey</h5>
+                  <p class="m-0 text-muted" style="font-size: 14px; line-height: 1.3;">Earn certificates and boost your profile for your next big opportunity.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-2">
+          <a href="#" class="btn border-0 fw-bold d-inline-flex align-items-center gap-2 px-4 py-2 text-white fx-btn-primary" style="background-color: #7b7dfc; border-radius: 8px; font-size: 14px;">
+            Explore &rarr;
+          </a>
+        </div>
+      </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+<!-- ================= OUR SERVICES SECTION ================= -->
+<section class=" gap-3 p-3 px-md-4 mb-5" style="background-color: #fafbfc;">
+  <div class="container">
+
+    <div class="text-center mb-4 fx-reveal">
+      <h2 class="fw-bold text-dark mb-2" style="font-size: 36px; font-weight: 900; letter-spacing: -0.5px;">
+        Our Services
+      </h2>
+       <p class="mx-auto" style="max-width: 720px; font-size: 16px; color: #64748b; line-height: 1.6;">
+         At <strong style="color: #7b7dfc;">Flex</strong><strong style="color: #ffcd00;">Work</strong><span style="color: #ffcd00;">,</span> You Can Explore Smart, Easy Solutions That Help You Find Work, Hire The Right People, And Grow Your Skills Designed For Today's Flexible Work Life.
+        </p>
+       </div>
+
+    <ul class="nav justify-content-center mb-5 border-0 gap-4" id="serviceTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active fw-bold border-0 bg-transparent px-0 text-muted position-relative fs-6" 
+                id="freelancer-tab" data-bs-toggle="tab" data-bs-target="#freelancer" type="button" role="tab"
+                style="cursor: pointer;">
+          Freelancer
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold border-0 bg-transparent px-0 text-muted position-relative fs-6" 
+                id="companies-tab" data-bs-toggle="tab" data-bs-target="#companies" type="button" role="tab"
+                style="cursor: pointer;">
+          Companies
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold border-0 bg-transparent px-0 text-muted position-relative fs-6" 
+                id="training-tab" data-bs-toggle="tab" data-bs-target="#training" type="button" role="tab"
+                style="cursor: pointer;">
+          Training Programs
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="serviceTabsContent">
+      
+      <!-- ================= TAB 1: FREELANCER ================= -->
+      <div class="tab-pane fade show active" id="freelancer" role="tabpanel">
+        <div class="row g-4">
+
+          <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="background-color: #ffffff;">
+              <div>
+                <div class="position-relative mb-3 rounded-4 overflow-hidden fx-media-hover" style="height: 250px;">
+                  <img src="freelancer1.webp" alt="Expert Interview Panelist" class="w-100 h-100" style="object-fit: cover;">
+                 
+                </div>
+                <h4 class="fw-bold text-dark mb-2" style="font-size: 18px;">Become Freelance Consultant</h4>
+                <p class="text-muted mb-4" style="font-size: 14px; line-height: 1.5;">Get matched with premium clients and high-paying freelance gigs tailored to your unique expertise.</p>
+              </div>
+              <a href="#" class="btn border-0 fw-bold w-100 py-3 text-white d-flex align-items-center justify-content-center gap-2 fx-btn-primary" style="background-color: #7b7dfc; border-radius: 10px; font-size: 18px;">
+                Explore Projects
+              </a>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="background-color: #ffffff;">
+              <div>
+                <div class="position-relative mb-3 rounded-4 overflow-hidden fx-media-hover" style="height: 250px;">
+                  <img src="freelancer2.webp" alt="Expert Interview Panelist" class="w-100 h-100" style="object-fit: cover;">
+                  
+                </div>
+                <h4 class="fw-bold text-dark mb-2" style="font-size: 18px;">Expert Interview Panelist</h4>
+                <p class="text-muted mb-4" style="font-size: 14px; line-height: 1.5;">Monetize your insights. Leverage your talent assessment skills to join expert session supporting companies remotely.</p>
+              </div>
+              <a href="#" class="btn border-0 fw-bold w-100 py-3 text-white d-flex align-items-center justify-content-center gap-2 fx-btn-primary" style="background-color: #7b7dfc; border-radius: 10px; font-size: 18px;">
+                Apply as a Panelist
+              </a>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="background-color: #ffffff;">
+              <div>
+                <div class="position-relative mb-3 rounded-4 overflow-hidden fx-media-hover" style="height: 250px;">
+                  <img src="freelancer3.webp" alt="FlexWork Certified Trainer" class="w-100 h-100" style="object-fit: cover;">
+                 
+                </div>
+                <h4 class="fw-bold text-dark mb-2" style="font-size: 18px;">Enroll as a FlexWork Certified Online Trainer</h4>
+                <p class="text-muted mb-4" style="font-size: 14px; line-height: 1.5;">Share your expertise as a certified online trainer and reach a global audience.</p>
+              </div>
+              <a href="#" class="btn border-0 fw-bold w-100 py-3 text-white d-flex align-items-center justify-content-center gap-2 fx-btn-primary" style="background-color: #7b7dfc; border-radius: 10px; font-size: 18px;">
+                Start Training Now
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= TAB 2: COMPANIES ================= -->
+      <div class="tab-pane fade" id="companies" role="tabpanel">
+        <div class="row g-4">
+
+          <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="background-color: #ffffff;">
+              <div>
+                <div class="position-relative mb-3 rounded-4 overflow-hidden fx-media-hover" style="height: 250px;">
+                  <img src="companies1.webp" alt="Hire Verified Freelancers" class="w-100 h-100" style="object-fit: cover;">
+                  
+                </div>
+                <h4 class="fw-bold text-dark mb-2" style="font-size: 18px;">Hire Verified Freelancers & Remote Experts</h4>
+                <p class="text-muted mb-4" style="font-size: 14px; line-height: 1.5;">Quickly find and onboard verified freelancers and remote experts for your hourly, short term, or project-based needs.</p>
+              </div>
+              <a href="#" class="btn border-0 fw-bold w-100 py-3 text-white d-flex align-items-center justify-content-center gap-2 fx-btn-primary" style="background-color: #7b7dfc; border-radius: 10px; font-size: 18px;">
+                Find Your Experts
+              </a>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="background-color: #ffffff;">
+              <div>
+                <div class="position-relative mb-3 rounded-4 overflow-hidden fx-media-hover" style="height: 250px;">
+                  <img src="companies2.webp" alt="Book Expert Interview Panelists" class="w-100 h-100" style="object-fit: fit;">
+                 
+                </div>
+                <h4 class="fw-bold text-dark mb-2" style="font-size: 18px;">Book Expert Interview Panelists</h4>
+                <p class="text-muted mb-4" style="font-size: 14px; line-height: 1.5;">Use industry specialists for faster, high-quality candidate evaluations without burdening your team.</p>
+              </div>
+              <a href="#" class="btn border-0 fw-bold w-100 py-3 text-white d-flex align-items-center justify-content-center gap-2 fx-btn-primary" style="background-color: #7b7dfc; border-radius: 10px; font-size: 18px;">
+                Book a Panelist
+              </a>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="background-color: #ffffff;">
+              <div>
+                <div class="position-relative mb-3 rounded-4 overflow-hidden fx-media-hover" style="height: 250px;">
+                  <img src="companies3.webp" alt="Remote Business Consultation" class="w-100 h-100" style="object-fit: cover;">
+                 
+                </div>
+                <h4 class="fw-bold text-dark mb-2" style="font-size: 18px;">Remote Business Consultation</h4>
+                <p class="text-muted mb-4" style="font-size: 14px; line-height: 1.5;">Get career and business clarity in 60 minutes with Our Top Industry Expert 1-on-1 consultations.</p>
+              </div>
+              <a href="#" class="btn border-0 fw-bold w-100 py-3 text-white d-flex align-items-center justify-content-center gap-2 fx-btn-primary" style="background-color: #7b7dfc; border-radius: 10px; font-size: 18px;">
+                Start Consultation
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= TAB 3: TRAINING PROGRAMS ================= -->
+      <div class="tab-pane fade" id="training" role="tabpanel">
+        <div class="row g-4">
+
+          <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="background-color: #ffffff;">
+              <div>
+                <div class="position-relative mb-3 rounded-4 overflow-hidden fx-media-hover" style="height: 250px;">
+                  <img src="training1.webp" alt="Student Training Programs" class="w-100 h-100" style="object-fit: fit;">
+                 
+                </div>
+                <h4 class="fw-bold text-dark mb-2" style="font-size: 18px;">Student Training Programs</h4>
+                <p class="text-muted mb-4" style="font-size: 14px; line-height: 1.5;">Start your career right. Learn industry-relevant skills and get hands-on projects to build a strong foundation.</p>
+              </div>
+              <a href="#" class="btn border-0 fw-bold w-100 py-3 text-white d-flex align-items-center justify-content-center gap-2 fx-btn-primary" style="background-color: #7b7dfc; border-radius: 10px; font-size: 18px;">
+                Explore Student Courses
+              </a>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="background-color: #ffffff;">
+              <div>
+                <div class="position-relative mb-3 rounded-4 overflow-hidden fx-media-hover" style="height: 250px;">
+                  <img src="training2.webp" alt="Expert Level Training Programs" class="w-100 h-100" style="object-fit: cover;">
+                 
+                </div>
+                <h4 class="fw-bold text-dark mb-2" style="font-size: 18px;">Expert Level Training Programs</h4>
+                <p class="text-muted mb-4" style="font-size: 14px; line-height: 1.5;">Advance your expertise with specialized training designed for industry professionals seeking skill upgrades.</p>
+              </div>
+              <a href="#" class="btn border-0 fw-bold w-100 py-3 text-white d-flex align-items-center justify-content-center gap-2 fx-btn-primary" style="background-color: #7b7dfc; border-radius: 10px; font-size: 18px;">
+                Explore Expert Courses
+              </a>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="background-color: #ffffff;">
+              <div>
+                <div class="position-relative mb-3 rounded-4 overflow-hidden fx-media-hover" style="height: 250px;">
+                  <img src="training3.webp" alt="Pro Level Training Programs" class="w-100 h-100" style="object-fit: cover;">
+                  
+                </div>
+                <h4 class="fw-bold text-dark mb-2" style="font-size: 18px;">Pro Level Training Programs</h4>
+                <p class="text-muted mb-4" style="font-size: 14px; line-height: 1.5;">Master advanced techniques and tools to become a top-tier professional in your field. Ideal for career growth.</p>
+              </div>
+              <a href="#" class="btn border-0 fw-bold w-100 py-3 text-white d-flex align-items-center justify-content-center gap-2 fx-btn-primary" style="background-color: #7b7dfc; border-radius: 10px; font-size: 18px;">
+                Explore Pro Courses
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+<!-- ================= OUR PURPOSE SECTION ================= -->
+<section class="gap-3 p-3 px-md-4 mb-5" style="background-color: #fafbfc;">
+  <div class="container">
+    <div class="p-4 p-md-4 rounded-5 border bg-white shadow-sm" style="border-color: #f1f5f9 !important;">
+
+      <div class="text-center mb-3 fx-reveal">
+        <h2 class="fw-bold text-dark mb-2" style="font-size: 36px; font-weight: 900; letter-spacing: -0.5px;">
+          Who We Are. <span style="color: #7b7dfc; border-bottom: 3px solid #ffcd00; padding-bottom: 2px;">Why We Exist.</span>
+        </h2>
+        <p class="mx-auto text-muted" style="max-width: 620px; font-size: 16px; line-height: 1.5;">
+          FlexWork is a fast-growing remote talent marketplace that connects businesses, professionals, learners, and experts from anywhere in the world.
+        </p>
+      </div>
+<div class="row g-3">
+
+  <div class="col-12 col-lg-6 d-flex">
+    <div class="p-4 rounded-5 border w-100 d-flex flex-column justify-content-start shadow-sm fx-purpose-card fx-reveal" 
+         style="background-color: #f6f7fe; border-color: #eef2ff !important;">
+      
+      <div>
+        <div class="d-flex align-items-center gap-3 mb-3" style="min-height: 48px;">
+          <div class="rounded-circle d-flex align-items-center justify-content-center text-white flex-shrink-0 fx-icon-circle" 
+               style="width: 38px; height: 42px; background-color: #7b7dfc; font-size: 18px;">
+            <i class="fa-solid fa-city"></i>
+          </div>
+          <h3 class="fw-bold m-0" style="color: #7b7dfc; font-size: 24px; letter-spacing: -0.3px; line-height: 1.2;">
+            For Businesses
+          </h3>
+        </div>
+
+        <div class="row align-items-center g-3">
+          <div class="col-12 col-sm-7 order-2 order-sm-2">
+            <p class="mb-2 text-dark" style="font-size: 14px; line-height: 1.5; color: #334155 !important;">
+              FlexWork is a fast-growing remote talent marketplace that simplifies how your business accesses top-tier global expertise for short-term, project-based, or hourly roles.
+            </p>
+            <p class="mb-2 text-dark" style="font-size: 14px; line-height: 1.5; color: #334155 !important;">
+              With FlexWork, you can access a global pool of over 1 million professionals from our application database, across diverse geographies and roles, at a reasonable cost with zero registration fees.
+            </p>
+            <p class="mb-0 text-dark" style="font-size: 14px; line-height: 1.5; color: #334155 !important;">
+              Our system instantly tags the most suitable candidates, and a dedicated FlexWork Agent handles the rest, ensuring a smooth hiring experience.
+            </p>
+          </div>
+
+          <div class="col-12 col-sm-5 text-center order-1 order-sm-1">
+            <div class="rounded-4 overflow-hidden shadow-sm fx-media-hover">
+              <img src="businesses.png" 
+                   alt="For Businesses" 
+                   class="img-fluid w-100" 
+                   style="height: 220px; object-fit: cover;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-3 pt-1">
+        <a href="#" class="btn border-0 fw-bold px-4 py-2.5 text-white d-inline-flex align-items-center gap-2 fx-btn-primary" 
+           style="background-color: #7b7dfc; border-radius: 10px; font-size: 13.5px;">
+          Register With Us &rarr;
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+<div class="col-12 col-lg-6 d-flex">
+  <div class="p-4 rounded-5 border w-100 d-flex flex-column justify-content-start shadow-sm fx-purpose-card fx-reveal" 
+       style="background-color: #fffdf5; border-color: #fef9c3 !important;">
+    
+    <div>
+      <div class="d-flex align-items-center gap-3 mb-3" style="min-height: 48px;">
+        <div class="rounded-circle d-flex align-items-center justify-content-center text-white flex-shrink-0 fx-icon-circle" 
+             style="width: 38px; height: 42px; background-color: #ffcd00; font-size: 18px;">
+          <i class="fa-regular fa-user"></i>
+        </div>
+        <h3 class="fw-bold m-0" style="color: #ffcd00; font-size: 24px; letter-spacing: -0.3px; line-height: 1.2;">
+          For Freelancers And Consultants
+        </h3>
+      </div>
+      <div class="row align-items-center g-2">
+        <div class="col-12 col-sm-7 pe-2">
+          <p class="mb-2 text-dark" style="font-size: 14px; line-height: 1.5; color: #334155 !important;">
+            Our platform is dedicated to bridging the gap between skilled professionals and meaningful, remote job opportunities, connecting talent from various geographies and industries.
+          </p>
+          <p class="mb-2 text-dark" style="font-size: 14px; line-height: 1.5; color: #334155 !important;">
+            We empower individuals from rural regions, fresh graduates, career returners, and freelancers to pursue work on their own terms, earning a livelihood on their own terms.
+          </p>
+          <p class="mb-0 text-dark" style="font-size: 14px; line-height: 1.5; color: #334155 !important;">
+            We're committed to creating an equitable ecosystem where talent meets opportunity, and work adapts to individual lives.
+          </p>
+        </div>
+         <div class="col-12 col-sm-5 text-center order-1 order-sm-1">
+          <div class="rounded-4 overflow-hidden shadow-sm fx-media-hover">
+            <img src="freelancer_consultant.png" 
+                 alt="For Freelancers" 
+                 class="img-fluid" 
+                    style="width:244px;height:220px;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3 pt-1">
+      <a href="#" class="btn border-0 fw-bold px-4 py-2.5 text-dark d-inline-flex align-items-center gap-2 fx-btn-yellow" 
+         style="background-color: #ffcd00; border-radius: 10px; font-size: 13.5px;">
+        Explore Jobs &rarr;
+      </a>
+    </div>
+
+  </div>
+</div>
+  </div>
+
+</div>
+  </div>
+
+</div>
+
+</div>
+</section>
+<section class="vision">
+  <div class="vision-blob"></div>
+  <svg class="sparkle" style="top:110px;right:9%;width:26px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z"/></svg>
+  <svg class="sparkle" style="top:230px;right:4%;width:16px;animation-delay:.6s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z"/></svg>
+  <svg class="sparkle" style="top:60px;left:4%;width:14px;animation-delay:1.1s;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z"/></svg>
+
+  <div class="wrap">
+    <div class="vision-head center reveal">
+      <h2 class="section-title">Our Vision — <span class="accent">The Future We're Building</span></h2>
+      <p class="section-sub">Our vision is to reshape the global gig workforce by making global talent accessible on demand — bringing businesses proven experts and fueling growth without geographical limits.</p>
+    </div>
+
+    <div class="vision-grid-wrap">
+      <div class="vision-grid">
+        <div class="vcard reveal d1">
+          <div class="vcard-media">
+            <img src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1784693378/ChatGPT_Image_Jul_22__2026__08_30_12_AM-removebg-preview_nrgnji.png" alt="Flexible work for all illustration">
+            <span class="vcard-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 20l-5.5 2V6L9 4m0 16l6 2m-6-2V4m6 18l5.5-2V4L15 6m0 16V4m0 0L9 6"/></svg>
+            </span>
+          </div>
+          <h3>Flexible Work for All</h3>
+          <p>We aim to create an inclusive platform that connects skilled professionals with remote, project-based, and flexible work opportunities, making it easier for anyone, anywhere.</p>
+          <span class="vtag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg> Work Your Way</span>
+        </div>
+
+        <div class="vcard reveal d2">
+          <div class="vcard-media">
+            <img src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1784693605/ChatGPT_Image_Jul_22__2026__08_31_01_AM-removebg-preview_vp5msz.png" alt="Global jobs easy access illustration">
+            <span class="vcard-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.7 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.7-3.8-9S9.5 5.5 12 3z"/></svg>
+            </span>
+          </div>
+          <h3>Global Jobs Easy Access</h3>
+          <p>Our goal is to help anyone, anywhere access meaningful work on their own schedule, through easy connections with global clients and opportunities.</p>
+          <span class="vtag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg> Opportunities Everywhere</span>
+        </div>
+
+        <div class="vcard reveal d3">
+          <div class="vcard-media">
+            <img src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1784693593/ChatGPT_Image_Jul_22__2026__09_41_29_AM-removebg-preview_nn7fmz.png" alt="Talent without borders illustration">
+            <span class="vcard-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-3.5 3.5-6 8-6s8 2.5 8 6"/></svg>
+            </span>
+          </div>
+          <h3>Talent Without Borders</h3>
+          <p>The best talent doesn't need an office; it needs opportunity. FlexWork is building a freedom-first future where gig work, remote roles, and short-term projects are a primary career choice.</p>
+          <span class="vtag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg> One World. One Talent.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-banner reveal">
+      <div class="cta-inner">
+        <div class="cta-glow"></div>
+        <svg class="bubble b1" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16a2 2 0 012 2v9a2 2 0 01-2 2H9l-5 4v-4H4a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+        <svg class="bubble b2" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16a2 2 0 012 2v9a2 2 0 01-2 2H9l-5 4v-4H4a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+        <div class="cta-left">
+          <div class="cta-illustration">
+            <img src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1784695896/ChatGPT_Image_Jul_22_2026_10_20_51_AM_glr1i8.png" alt="FlexWork agent illustration">
+          </div>
+          <div>
+            <span class="cta-eyebrow-text">Need Guidance?</span>
+            <h3>Not Sure Where To Start?<br>Talk To A <span>FlexWork Agent</span> Today!</h3>
+          </div>
+        </div>
+        <button class="cta-btn">
+          <span class="cta-btn-shine"></span>
+          <span>GET IN TOUCH</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="jobs">
+  <div class="wrap">
+    <div class="jobs-head center reveal">
+      <span class="eyebrow" style="background:#eef0ff;color:var(--purple);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M5 12l4-4M5 12l4 4"/></svg>
+        Explore Opportunities
+      </span>
+      <h2 class="section-title">Featured <span class="accent">Job Postings</span></h2>
+    </div>
+
+    <div class="carousel-wrap reveal">
+      <div class="carousel-nav prev" id="jobsPrev">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 6l-6 6 6 6"/></svg>
+      </div>
+      <div class="carousel-nav next" id="jobsNext">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>
+      </div>
+
+      <div class="carousel-track" id="jobsTrack">
+        <div class="job-card">
+          <div class="job-card-accent"></div>
+          <div class="job-body">
+          <div class="job-top">
+            <div class="job-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div>
+            <svg class="bookmark" viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></svg>
+          </div>
+          <h4>Mainframe IMS Systems DBA</h4>
+          <p class="job-org">TechNova Solutions</p>
+          <span class="badge">CONSULTANT</span>
+          <p class="job-role"><b>Role:</b> Mainframe IMS Systems DBA</p>
+          <div class="job-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>3 hrs/day</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>11 days ago</span>
+          </div>
+          <a href="#" class="job-more">View More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+
+        <div class="job-card">
+          <div class="job-card-accent"></div>
+          <div class="job-body">
+          <div class="job-top">
+            <div class="job-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div>
+            <svg class="bookmark" viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></svg>
+          </div>
+          <h4>Mainframe DB2 Systems DBA</h4>
+          <p class="job-org">TechNova Solutions</p>
+          <span class="badge">CONSULTANT</span>
+          <p class="job-role"><b>Role:</b> Mainframe DB2 Systems DBA</p>
+          <div class="job-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>3 hrs/day</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>16 days ago</span>
+          </div>
+          <a href="#" class="job-more">View More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+
+        <div class="job-card">
+          <div class="job-card-accent"></div>
+          <div class="job-body">
+          <div class="job-top">
+            <div class="job-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l6-6 4 4 8-8M21 7v6M15 15h6"/></svg></div>
+            <svg class="bookmark" viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></svg>
+          </div>
+          <h4>Freelance Product Sales Consultant US Market</h4>
+          <p class="job-org">SalesFlow Global</p>
+          <span class="badge">CONSULTANT</span>
+          <p class="job-role"><b>Role:</b> Freelance Product Sales Consultant US Market</p>
+          <div class="job-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>4 hrs/day</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>20 days ago</span>
+          </div>
+          <a href="#" class="job-more">View More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+
+        <div class="job-card">
+          <div class="job-card-accent"></div>
+          <div class="job-body">
+          <div class="job-top">
+            <div class="job-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 21c0-3 2.7-5 6-5s6 2 6 5M14 21c0-2.5 2-4.3 4.5-4.3S23 18.5 23 21"/></svg></div>
+            <svg class="bookmark" viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></svg>
+          </div>
+          <h4>Freelance Sales Consultant Gig Workforce Solutions</h4>
+          <p class="job-org">WorkForce Hub</p>
+          <span class="badge">CONSULTANT</span>
+          <p class="job-role"><b>Role:</b> Freelance Sales Consultant Gig Workforce Solutions</p>
+          <div class="job-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>4 hrs/day</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>25 days ago</span>
+          </div>
+          <a href="#" class="job-more">View More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+
+        <div class="job-card">
+          <div class="job-card-accent"></div>
+          <div class="job-body">
+          <div class="job-top">
+            <div class="job-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 12h18"/></svg></div>
+            <svg class="bookmark" viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></svg>
+          </div>
+          <h4>Freelance Product Sales Consultant</h4>
+          <p class="job-org">SalesFlow Global</p>
+          <span class="badge">CONSULTANT</span>
+          <p class="job-role"><b>Role:</b> Freelance Product Sales Consultant</p>
+          <div class="job-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>4 hrs/day</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>25 days ago</span>
+          </div>
+          <a href="#" class="job-more">View More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+
+        <div class="job-card">
+          <div class="job-card-accent"></div>
+          <div class="job-body">
+          <div class="job-top">
+            <div class="job-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M2 12a10 10 0 0020 0 10 10 0 00-20 0z"/><path d="M12 2a10 10 0 010 20"/></svg></div>
+            <svg class="bookmark" viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></svg>
+          </div>
+          <h4>Analytics Engineer</h4>
+          <p class="job-org">DataMinds Tech</p>
+          <span class="badge">CONSULTANT</span>
+          <p class="job-role"><b>Role:</b> Analytics Engineer</p>
+          <div class="job-meta">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>3 hrs/day</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>a month ago</span>
+          </div>
+          <a href="#" class="job-more">View More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="view-all reveal">
+      <a href="#">View All Jobs
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="videos">
+  <div class="wrap">
+    <div class="center reveal">
+      <h2 class="section-title">Watch Our <span class="accent">Latest Videos</span></h2>
+      <p class="section-sub">Real talk on gig work, AI, and building a career without borders — straight from the FlexWork channel.</p>
+    </div>
+
+    <div class="carousel-wrap reveal">
+      <div class="carousel-nav prev" id="videoPrev">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 6l-6 6 6 6"/></svg>
+      </div>
+      <div class="carousel-nav next" id="videoNext">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>
+      </div>
+      <div class="video-track" id="videoTrack"></div>
+    </div>
+
+    <div class="dots" id="videoDots"></div>
+  </div>
+
+  <div class="foot-banner">
+    <div class="wrap">
+      <div class="foot-top reveal">
+        <div class="foot-top-left">
+          <div class="target-icon-wrap">
+            <img src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1784696315/ChatGPT_Image_Jul_22__2026__10_26_39_AM-removebg-preview_qpbexz.png" alt="FlexWork mascot">
+          </div>
+          <h3>Game Changing Platform for<br>Flexible Talent with Global Opportunities</h3>
+        </div>
+        <div class="foot-top-btns">
+          <button class="btn-solid">
+            <span class="btn-solid-shine"></span>
+            <span>Post a Job</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <button class="btn-ghost">Apply For Jobs</button>
+        </div>
+      </div>
+<!-- White dividing line after the banner -->
+<hr style="border: none; border-top: 2px solid rgba(255, 255, 255, 0.3); margin: 30px 0; opacity: 1;">
+<section style="color: #ffffff;">
+  <div class="foot-cols">
+    <!-- Brand & Socials -->
+    <div>
+      <img class="foot-logo-img" src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1779554573/flexwork_logo_nlilan.png" alt="FlexWork logo">
+      <div class="socials">
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Quick Links 1 -->
+    <div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Our Services</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Blogs</a></li>
+      </ul>
+    </div>
+
+    <!-- Quick Links 2 -->
+    <div>
+      <ul>
+        <li><a href="#">Find Remote Jobs</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <!-- Newsletter Input -->
+    <div>
+      <h5 style="text-transform: none; color: #ffffff;">Subscribe to our newsletter</h5>
+      <form class="news-form" onsubmit="return false;">
+        <input type="email" placeholder="Enter Your Email" required>
+        <button type="submit" aria-label="Subscribe">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Address Section with Divider Above -->
+  <div style="margin: 32px 0 24px 0;">
+    <div style="border-top: 2px solid rgba(255, 255, 255, 0.3); margin-bottom: 24px; max-width: 550px; margin-left: auto; margin-right: auto;"></div>
+    
+    <div class="foot-address" style="display: flex; gap: 12px; align-items: flex-start; justify-content: center;">
+      <svg viewBox="0 0 24 24" fill="#ffffff" width="22" height="22" style="flex-shrink: 0; margin-top: 2px;">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+      </svg>
+      <address style="font-style: normal; text-align: left; line-height: 1.6; font-size: 14px; color: #ffffff;">
+        10th Floor, No:143,RMZ, Millenia Business Park II,<br>
+        Perungudi,<br>
+        Chennai, Tamil Nadu - 600096
+      </address>
+    </div>
+  </div>
+
+  <!-- Footer Bottom Bar -->
+  <div class="foot-bottom" style="display: flex; justify-content: space-between; align-items: center; color: #ffffff;">
+    <a href="#" style="color: #ffffff; text-decoration: none;">Terms & Conditions</a>
+    <div style="text-align: center; line-height: 1.5;">
+      <p style="margin: 0;">© 2025 Flexwork Information Technology Pvt Ltd. All rights reserved.</p>
+      <p style="margin: 0;">Made with <span style="color: #ff3b30;">❤️</span> in India</p>
+    </div>
+    <a href="#" style="color: #ffffff; text-decoration: none;">Privacy Policy</a>
+  </div>
+</section>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <div class="modal-close" id="modalClose">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </div>
+    <iframe id="modalIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+},{threshold:.15});
+revealEls.forEach(el=>io.observe(el));
+document.querySelectorAll('.vision-grid .vcard').forEach((el,i)=>{ el.classList.add('reveal','d'+(i+1)); io.observe(el); });
+
+/* NEW: scroll-reveal for the added .fx-reveal elements (Hero → Who We Are section) */
+const fxIo = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('fx-in'); fxIo.unobserve(e.target); }
+  });
+},{threshold:.15});
+document.querySelectorAll('.fx-reveal').forEach(el=>fxIo.observe(el));
+
+const jobsTrack = document.getElementById('jobsTrack');
+const jobsPrev = document.getElementById('jobsPrev');
+const jobsNext = document.getElementById('jobsNext');
+function jobsScrollAmount(){
+  const card = jobsTrack.querySelector('.job-card');
+  return card ? card.getBoundingClientRect().width + 22 : 260;
+}
+jobsPrev.addEventListener('click', ()=> jobsTrack.scrollBy({left:-jobsScrollAmount()*2, behavior:'smooth'}));
+jobsNext.addEventListener('click', ()=> jobsTrack.scrollBy({left: jobsScrollAmount()*2, behavior:'smooth'}));
+
+const videos = [
+  { id:'4P-zdLXqo1U', title:'Are You Struggling To Keep Up With AI?' },
+  { id:'VS-We3GV9W4', title:'How To Turn 25 Yrs Of Work Experience Into Your Edge' },
+  { id:'YrmCLDzryhg', title:'Are You Looking For Remote Work? Fix Your CV First' },
+  { id:'iPbMALwU3I4', title:'The FlexWork Way: Freedom-First Careers' },
+  { id:'N1RBSR6UNr8', title:'How Clients Find Vetted Talent, Fast' },
+  { id:'jorq5hSiGXU', title:'From Full-Time To Freelance: Making The Leap' },
+];
+
+const videoTrack = document.getElementById('videoTrack');
+const videoDots = document.getElementById('videoDots');
+const videoPrev = document.getElementById('videoPrev');
+const videoNext = document.getElementById('videoNext');
+
+videos.forEach((v, i)=>{
+  const card = document.createElement('div');
+  card.className = 'video-card';
+  card.setAttribute('data-id', v.id);
+  card.innerHTML = `
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/${v.id}/hqdefault.jpg" alt="${v.title}" loading="lazy">
+      <span class="yt-tag"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.8zM9.6 15.5v-7l6.3 3.5-6.3 3.5z"/></svg>Watch on YouTube</span>
+      <div class="play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="video-title">${v.title}</div>
+    </div>
+  `;
+  card.addEventListener('click', ()=> openModal(v.id));
+  videoTrack.appendChild(card);
+
+  const dot = document.createElement('span');
+  dot.className = 'dot' + (i===0 ? ' active' : '');
+  dot.addEventListener('click', ()=>{
+    const c = videoTrack.children[i];
+    videoTrack.scrollTo({left: c.offsetLeft - 4, behavior:'smooth'});
+  });
+  videoDots.appendChild(dot);
+});
+
+function videoScrollAmount(){
+  const card = videoTrack.querySelector('.video-card');
+  return card ? card.getBoundingClientRect().width + 22 : 320;
+}
+videoPrev.addEventListener('click', ()=> videoTrack.scrollBy({left:-videoScrollAmount(), behavior:'smooth'}));
+videoNext.addEventListener('click', ()=> videoTrack.scrollBy({left: videoScrollAmount(), behavior:'smooth'}));
+
+let dotTicking = false;
+videoTrack.addEventListener('scroll', ()=>{
+  if(dotTicking) return;
+  dotTicking = true;
+  requestAnimationFrame(()=>{
+    const cards = [...videoTrack.children];
+    let closest = 0, min = Infinity;
+    cards.forEach((c,i)=>{
+      const d = Math.abs(c.offsetLeft - videoTrack.scrollLeft);
+      if(d < min){ min = d; closest = i; }
+    });
+    [...videoDots.children].forEach((d,i)=> d.classList.toggle('active', i===closest));
+    dotTicking = false;
+  });
+});
+
+const modalOverlay = document.getElementById('modalOverlay');
+const modalIframe = document.getElementById('modalIframe');
+const modalClose = document.getElementById('modalClose');
+
+function openModal(id){
+  modalIframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+  modalOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(){
+  modalOverlay.classList.remove('open');
+  modalIframe.src = '';
+  document.body.style.overflow = '';
+}
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', (e)=>{ if(e.target === modalOverlay) closeModal(); });
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
