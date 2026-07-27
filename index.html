@@ -379,6 +379,14 @@
   .carousel-wrap.in .video-card:nth-child(5){animation-delay:.28s;}
   .carousel-wrap.in .video-card:nth-child(6){animation-delay:.34s;}
 
+  /* Our Services cards — same pop-up entrance style as the Watch Our Latest Videos / jobs carousels */
+  .services-row.reveal{ opacity:1; transform:none; transition:none; } /* the row itself just acts as the scroll trigger; cards animate individually below */
+  .services-row .fx-service-card{ opacity:0; }
+  .services-row.in .fx-service-card{ animation:fadeInUp .65s cubic-bezier(.2,.7,.2,1) forwards; }
+  .services-row.in .col-12:nth-child(1) .fx-service-card{ animation-delay:.04s; }
+  .services-row.in .col-12:nth-child(2) .fx-service-card{ animation-delay:.1s; }
+  .services-row.in .col-12:nth-child(3) .fx-service-card{ animation-delay:.16s; }
+
   .job-card{
     scroll-snap-align:start;
     flex:0 0 auto;
@@ -909,11 +917,18 @@
     left: 130%;
 }
 
-  .fx-reveal{ opacity:0; transform:translateY(26px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+  .fx-reveal{ opacity:0; transform:translateY(48px); transition:opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1); will-change:opacity, transform; }
   .fx-reveal.fx-in{ opacity:1; transform:translateY(0); }
-  .fx-reveal.fx-r1{transition-delay:.05s;}
-  .fx-reveal.fx-r2{transition-delay:.12s;}
-  .fx-reveal.fx-r3{transition-delay:.19s;}
+  .fx-reveal.fx-r1{transition-delay:.12s;}
+  .fx-reveal.fx-r2{transition-delay:.28s;}
+  .fx-reveal.fx-r3{transition-delay:.44s;}
+
+  /* Slide-in-from-left variant, used for How It Works media */
+  .fx-reveal.fx-reveal-left{ transform:translateX(-140px); transition-duration:1.1s; }
+  .fx-reveal.fx-reveal-left.fx-in{ transform:translateX(0); }
+  @media (max-width: 991.98px){
+    .fx-reveal.fx-reveal-left{ transform:translateY(48px); } /* fall back to up-fade on small screens where the column stacks */
+  }
 /* Step Card */
 .fx-step{
     transition: transform .35s cubic-bezier(.2,.8,.2,1),
@@ -999,12 +1014,28 @@
 }
 
   .fx-purpose-card{ transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease, background-color .45s ease, border-color .45s ease; }
+  /* the transition shorthand above would otherwise wipe out the reveal's opacity/transform
+     transition on the same element — restore it here with higher specificity, and make the
+     entrance clearly noticeable: a bigger rise + a slight scale-pop, staggered per card. */
+  .fx-purpose-card.fx-reveal{
+    transform: translateY(90px) scale(.92);
+    transition: opacity 1.1s cubic-bezier(.2,.7,.2,1), transform 1.1s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease, background-color .45s ease, border-color .45s ease;
+  }
+  .fx-purpose-card.fx-reveal.fx-in{ transform: translateY(0) scale(1); }
+  .fx-purpose-card.fx-reveal.fx-r1{ transition-delay:.05s; }
+  .fx-purpose-card.fx-reveal.fx-r2{ transition-delay:.35s; }
   .fx-purpose-card:hover{ transform: translateY(-6px); box-shadow:0 22px 42px -20px rgba(28,27,58,.2); }
+  .fx-purpose-card.fx-reveal.fx-in:hover{ transform: translateY(-6px); }
   .fx-icon-circle{ transition: transform .35s ease, background-color .35s ease, color .35s ease; }
   .fx-purpose-card:hover .fx-icon-circle{ transform: rotate(-10deg) scale(1.1); }
   .fx-purpose-card h3{ transition: color .4s ease; }
   .fx-purpose-text{ color:#334155; transition: color .4s ease; }
   .fx-media-hover{ transition: box-shadow .45s ease; }
+  /* fx-media-hover's transition shorthand above would otherwise wipe out the
+     opacity/transform transition needed for the entrance reveal on the same
+     element — restore it here with higher specificity so both work together. */
+  .fx-media-hover.fx-reveal{ transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease; }
+  .fx-media-hover.fx-reveal.fx-reveal-left{ transition: opacity 1.1s cubic-bezier(.2,.7,.2,1), transform 1.1s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease; }
 
   /* ---- For Businesses card: purple takeover on hover ---- */
   .fx-card-business:hover{
@@ -1513,7 +1544,7 @@ section{
 </header>
  <!-- HERO SECTION -->
 <section class="position-relative w-100 d-flex align-items-center py-5 overflow-hidden" style="min-height: 560px;">
-  <img src="hero_image.png" 
+  <img src="hero_image.webp" 
        alt="Hero Background" 
        class="position-absolute top-0 end-0 h-100 w-100" 
        style="object-fit:contain; object-position: center right; z-index: 0;">
@@ -1611,7 +1642,7 @@ section{
     <div class="row align-items-center g-4 g-lg-5" style="min-height: 500px;">
 
       <div class="col-12 col-lg-6 text-center">
-        <div class="rounded-4 overflow-hidden shadow-sm mx-auto fx-media-hover fx-reveal" style="max-width: 480px; height: 440px; background-color: #f8fafc;">
+        <div class="rounded-4 overflow-hidden shadow-sm mx-auto fx-media-hover fx-reveal fx-reveal-left" style="max-width: 480px; height: 440px; background-color: #f8fafc;">
           <img src="remote_job.png" 
                alt="Find Remote Jobs View" 
                class="w-100 h-100" 
@@ -1621,10 +1652,10 @@ section{
 
       <div class="col-12 col-lg-6 ps-lg-4 d-flex flex-column justify-content-between" style="min-height: 440px;">
         <div>
-          <h2 class="fw-bold text-dark mb-2" style="font-size: 36px; font-weight: 900; letter-spacing: -0.5px;">
+          <h2 class="fw-bold text-dark mb-2 fx-reveal" style="font-size: 36px; font-weight: 900; letter-spacing: -0.5px;">
             Find Remote Jobs
           </h2>
-          <p class="mb-3" style="font-size: 16px; color: #64748b; line-height: 1.5; min-height: 42px;">
+          <p class="mb-3 fx-reveal fx-r1" style="font-size: 16px; color: #64748b; line-height: 1.5; min-height: 42px;">
             Start freelancing in 3 easy steps and build your remote career from anywhere with verified projects and global clients.
           </p>
 
@@ -1641,7 +1672,7 @@ section{
      ">
 </div>
 
-            <div class=" fx-step-wrapper d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+            <div class="fx-step-wrapper fx-reveal fx-r1 d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
               <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-dark shadow-sm fx-number" style="width: 40px; height: 40px; background-color: #ffcd00; font-size: 14px; flex-shrink: 0;">1</div>
               <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step fx-step-yellow" style="background-color: #fffdf5; border: 1px solid #fef3c7; min-height: 76px;">
                 <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background-color: #fef3c7; color: #ffcd00; flex-shrink: 0;">
@@ -1654,7 +1685,7 @@ section{
               </div>
             </div>
 
-            <div class=" fx-step-wrapper d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+            <div class="fx-step-wrapper fx-reveal fx-r2 d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
               <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white shadow-sm fx-number" style="width: 40px; height: 40px; background-color: #7b7dfc; font-size: 14px; flex-shrink: 0;">2</div>
               <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step fx-step-purple" style="background-color: #f5f3ff; border: 1px solid #ede9fe; min-height: 76px;">
                 <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background-color: #ede9fe; color: #7b7dfc; flex-shrink: 0;">
@@ -1667,7 +1698,7 @@ section{
               </div>
             </div>
 
-            <div class=" fx-step-wrapper d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+            <div class="fx-step-wrapper fx-reveal fx-r3 d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
               <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white shadow-sm fx-number" style="width: 40px; height: 40px; background-color: #e91e63; font-size: 14px; flex-shrink: 0;">3</div>
               <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step fx-step-pink" style="background-color: #fdf2f8; border: 1px solid #fbcfe8; min-height: 76px;">
                 <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background-color: #fbcfe8; color: #e91e63; flex-shrink: 0;">
@@ -1696,7 +1727,7 @@ section{
     <div class="row align-items-center g-4 g-lg-5" style="min-height: 500px;">
 
       <div class="col-12 col-lg-6 text-center">
-        <div class="rounded-4 overflow-hidden shadow-sm mx-auto fx-media-hover fx-reveal" style="max-width: 480px; height: 440px; background-color: #f8fafc;">
+        <div class="rounded-4 overflow-hidden shadow-sm mx-auto fx-media-hover fx-reveal fx-reveal-left" style="max-width: 480px; height: 440px; background-color: #f8fafc;">
           <img src="find_project_talent.png" 
                alt="Find Project Talent View" 
                class="w-100 h-100" 
@@ -1706,10 +1737,10 @@ section{
 
       <div class="col-12 col-lg-6 ps-lg-4 d-flex flex-column justify-content-between" style="min-height: 440px;">
         <div>
-          <h2 class="fw-bold text-dark mb-2" style="font-size: 36px; font-weight: 900; letter-spacing: -0.5px;">
+          <h2 class="fw-bold text-dark mb-2 fx-reveal" style="font-size: 36px; font-weight: 900; letter-spacing: -0.5px;">
             Find Project Talent
           </h2>
-          <p class="mb-3" style="font-size: 16px; color: #64748b; line-height: 1.5; min-height: 42px;">
+          <p class="mb-3 fx-reveal fx-r1" style="font-size: 16px; color: #64748b; line-height: 1.5; min-height: 42px;">
             Scale your team with vetted professionals matched to your project requirements and timelines.
           </p>
 
@@ -1726,7 +1757,7 @@ section{
      ">
 </div>
 
-            <div class=" fx-step-wrapper d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+            <div class="fx-step-wrapper fx-reveal fx-r1 d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
               <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-dark shadow-sm fx-number" style="width: 40px; height: 40px; background-color: #ffcd00; font-size: 14px; flex-shrink: 0;">1</div>
               <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step fx-step-yellow" style="background-color: #fffdf5; border: 1px solid #fef3c7; min-height: 76px;">
                 <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background-color: #fef3c7; color: #ffcd00; flex-shrink: 0;">
@@ -1739,7 +1770,7 @@ section{
               </div>
             </div>
 
-            <div class=" fx-step-wrapper d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+            <div class="fx-step-wrapper fx-reveal fx-r2 d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
               <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white shadow-sm fx-number" style="width: 40px; height: 40px; background-color: #7b7dfc; font-size: 14px; flex-shrink: 0;">2</div>
               <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step fx-step-purple" style="background-color: #f5f3ff; border: 1px solid #ede9fe; min-height: 76px;">
                 <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background-color: #ede9fe; color: #7b7dfc; flex-shrink: 0;">
@@ -1752,7 +1783,7 @@ section{
               </div>
             </div>
 
-            <div class=" fx-step-wrapper d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+            <div class="fx-step-wrapper fx-reveal fx-r3 d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
               <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white shadow-sm fx-number" style="width: 40px; height: 40px; background-color: #e91e63; font-size: 14px; flex-shrink: 0;">3</div>
               <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step fx-step-pink" style="background-color: #fdf2f8; border: 1px solid #fbcfe8; min-height: 76px;">
                 <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background-color: #fbcfe8; color: #e91e63; flex-shrink: 0;">
@@ -1781,7 +1812,7 @@ section{
     <div class="row align-items-center g-4 g-lg-5" style="min-height: 500px;">
 
       <div class="col-12 col-lg-6 text-center">
-        <div class="rounded-4 overflow-hidden shadow-sm mx-auto fx-media-hover fx-reveal" style="max-width: 480px; height: 440px; background-color: #f8fafc;">
+        <div class="rounded-4 overflow-hidden shadow-sm mx-auto fx-media-hover fx-reveal fx-reveal-left" style="max-width: 480px; height: 440px; background-color: #f8fafc;">
           <img src="grow_your_skills.png" 
                alt="Grow Your Skills View" 
                class="w-100 h-100" 
@@ -1791,10 +1822,10 @@ section{
 
       <div class="col-12 col-lg-6 ps-lg-4 d-flex flex-column justify-content-between" style="min-height: 440px;">
         <div>
-          <h2 class="fw-bold text-dark mb-2" style="font-size: 36px; font-weight: 900; letter-spacing: -0.5px;">
+          <h2 class="fw-bold text-dark mb-2 fx-reveal" style="font-size: 36px; font-weight: 900; letter-spacing: -0.5px;">
             Grow Your Skills
           </h2>
-          <p class="mb-3" style="font-size: 16px; color: #64748b; line-height: 1.5; min-height: 42px;">
+          <p class="mb-3 fx-reveal fx-r1" style="font-size: 16px; color: #64748b; line-height: 1.5; min-height: 42px;">
             Advance your career with guided learning, hands-on projects, and expert feedback.
           </p>
 
@@ -1811,7 +1842,7 @@ section{
      ">
 </div>
 
-            <div class="fx-step-wrapper d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+            <div class="fx-step-wrapper fx-reveal fx-r1 d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
               <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-dark shadow-sm fx-number" style="width: 40px; height: 40px; background-color: #ffcd00; font-size: 14px; flex-shrink: 0;">1</div>
               <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step fx-step-yellow" style="background-color: #fffdf5; border: 1px solid #fef3c7; min-height: 76px;">
                 <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background-color: #fef3c7; color: #ffcd00; flex-shrink: 0;">
@@ -1824,7 +1855,7 @@ section{
               </div>
             </div>
 
-            <div class="fx-step-wrapper d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+            <div class="fx-step-wrapper fx-reveal fx-r2 d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
               <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white shadow-sm fx-number" style="width: 40px; height: 40px; background-color: #7b7dfc; font-size: 14px; flex-shrink: 0;">2</div>
               <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step fx-step-purple" style="background-color: #f5f3ff; border: 1px solid #ede9fe; min-height: 76px;">
                 <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background-color: #ede9fe; color: #7b7dfc; flex-shrink: 0;">
@@ -1837,7 +1868,7 @@ section{
               </div>
             </div>
 
-            <div class="fx-step-wrapper d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
+            <div class="fx-step-wrapper fx-reveal fx-r3 d-flex align-items-center gap-3 position-relative" style="z-index: 1;">
               <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white shadow-sm fx-number" style="width: 40px; height: 40px; background-color: #e91e63; font-size: 14px; flex-shrink: 0;">3</div>
               <div class="p-3 rounded-4 d-flex align-items-center gap-3 w-100 fx-step fx-step-pink" style="background-color: #fdf2f8; border: 1px solid #fbcfe8; min-height: 76px;">
                 <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background-color: #fbcfe8; color: #e91e63; flex-shrink: 0;">
@@ -1908,7 +1939,7 @@ section{
       
       <!-- ================= TAB 1: FREELANCER ================= -->
       <div class="tab-pane fade show active" id="freelancer" role="tabpanel">
-        <div class="row g-4">
+        <div class="row g-4 reveal services-row">
 
           <div class="col-12 col-md-6 col-lg-4 d-flex">
             <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="background-color: #ffffff;">
@@ -1963,7 +1994,7 @@ section{
 
       <!-- ================= TAB 2: COMPANIES ================= -->
       <div class="tab-pane fade" id="companies" role="tabpanel">
-        <div class="row g-4">
+        <div class="row g-4 reveal services-row">
 
           <div class="col-12 col-md-6 col-lg-4 d-flex">
             <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="background-color: #ffffff;">
@@ -2018,7 +2049,7 @@ section{
 
       <!-- ================= TAB 3: TRAINING PROGRAMS ================= -->
       <div class="tab-pane fade" id="training" role="tabpanel">
-        <div class="row g-4">
+        <div class="row g-4 reveal services-row">
 
           <div class="col-12 col-md-6 col-lg-4 d-flex">
             <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="background-color: #ffffff;">
@@ -2091,7 +2122,7 @@ section{
 <div class="row g-3">
 
   <div class="col-12 col-lg-6 d-flex">
-    <div class="p-4 rounded-5 border w-100 d-flex flex-column justify-content-start shadow-sm fx-purpose-card fx-card-business fx-reveal" 
+    <div class="p-4 rounded-5 border w-100 d-flex flex-column justify-content-start shadow-sm fx-purpose-card fx-card-business fx-reveal fx-r1" 
          style="background-color: #f6f7fe; border-color: #eef2ff !important;">
       
       <div>
@@ -2140,7 +2171,7 @@ section{
   </div>
 
 <div class="col-12 col-lg-6 d-flex">
-  <div class="p-4 rounded-5 border w-100 d-flex flex-column justify-content-start shadow-sm fx-purpose-card fx-card-freelancer fx-reveal" 
+  <div class="p-4 rounded-5 border w-100 d-flex flex-column justify-content-start shadow-sm fx-purpose-card fx-card-freelancer fx-reveal fx-r2" 
        style="background-color: #fffdf5; border-color: #fef9c3 !important;">
     
     <div>
