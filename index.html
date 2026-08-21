@@ -2368,6 +2368,66 @@ section {overflow: visible;}
     }
 
 }
+/* ============ "Not Sure Where To Start?" CTA — responsive rebuild ============ */
+.start-cta{position:relative;margin-top:40px;border-radius:28px;overflow:hidden;background:#ffffff;box-shadow:0 22px 46px -22px rgba(74,63,214,.35);}
+.start-cta-diagonal{position:absolute;inset:0;background:linear-gradient(135deg,#8688fd,#6a6cf5);clip-path:polygon(0 0, 58% 0, 46% 100%, 0 100%);z-index:1;transition:clip-path .3s ease;}
+.start-cta-dots{position:absolute;top:0;right:0;width:170px;height:170px;background-image:radial-gradient(#d8d9ff 1.6px, transparent 1.6px);background-size:16px 16px;-webkit-mask-image:linear-gradient(to bottom left, #000 30%, transparent 75%);mask-image:linear-gradient(to bottom left, #000 30%, transparent 75%);opacity:.9;z-index:0;pointer-events:none;}
+.start-cta-chat{position:absolute;top:24px;left:28px;width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;z-index:2;}
+.start-cta-chat svg{width:20px;height:20px;}
+.start-cta-content{position:relative;z-index:2;display:flex;align-items:center;flex-wrap:wrap;padding:56px 48px 48px;gap:32px;}
+.start-cta-left{display:flex;align-items:center;gap:24px;flex:1 1 400px;min-width:320px;}
+.start-cta-illustration{width:180px;height:180px;object-fit:contain;flex:none;display:block;}
+.start-cta-eyebrow{display:inline-block;color:#ffcd00;font-weight:800;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;border-bottom:2px solid #ffcd00;padding-bottom:6px;margin-bottom:14px;}
+.start-cta-heading{margin:0;font-size:26px;font-weight:900;line-height:1.35;color:#ffffff;}
+.start-cta-heading span{color:#ffcd00;}
+.start-cta-right{flex:1 1 420px;min-width:340px;display:flex;flex-direction:column;align-items:flex-end;gap:24px;}
+.start-cta-stats{display:flex;align-items:flex-start;flex-wrap:wrap;justify-content:flex-end;row-gap:16px;}
+.start-cta-stat{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 18px;max-width:150px;}
+.start-cta-stat-icon{width:56px;height:56px;border-radius:50%;background:#eef0ff;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+.start-cta-stat-icon svg{width:24px;height:24px;}
+.start-cta-stat h4{margin:0 0 6px;font-size:14.5px;font-weight:800;color:#1c1b3a;}
+.start-cta-stat p{margin:0;font-size:12.5px;color:#6b6a8a;line-height:1.4;}
+.start-cta-divider{width:1px;height:78px;background:#e7e7fb;align-self:center;flex:none;}
+.start-cta-action{display:flex;align-items:center;justify-content:flex-end;width:100%;}
+.start-cta-btn{position:relative;flex:none;white-space:nowrap;background:#ffcd00;color:#000000;font-weight:900;letter-spacing:.03em;font-size:14.5px;padding:17px 32px;border-radius:14px;border:none;display:inline-flex;align-items:center;gap:10px;cursor:pointer;box-shadow:0 14px 26px -10px rgba(0,0,0,.35);transition:transform .3s ease, box-shadow .3s ease;}
+.start-cta-btn svg{width:16px;height:16px;}
+.start-cta-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 20px 36px -10px rgba(0,0,0,.45);}
+
+/* hover: personalized guidance / quick response / 100% free support turn yellow */
+.start-cta-stat{cursor:default;transition:transform .3s ease;}
+.start-cta-stat-icon{transition:background .3s ease, transform .3s ease;}
+.start-cta-stat-icon svg{transition:stroke .3s ease;}
+.start-cta-stat h4{transition:color .3s ease;}
+.start-cta-stat:hover{transform:translateY(-4px);}
+.start-cta-stat:hover .start-cta-stat-icon{background:#fff1b8;transform:scale(1.06);}
+.start-cta-stat:hover .start-cta-stat-icon svg{stroke:#c99a00;}
+.start-cta-stat:hover h4{color:#8a6d00;}
+
+@media(max-width:900px){
+  .start-cta-diagonal, .start-cta-dots{display:none;}
+  .start-cta-content{flex-direction:column;align-items:stretch;padding:0;gap:0;}
+  .start-cta-left{min-width:0;background:linear-gradient(135deg,#8688fd,#6a6cf5);padding:40px 32px;margin:0;}
+  .start-cta-right{min-width:0;align-items:stretch;background:#ffffff;padding:32px;gap:24px;}
+  .start-cta-stats{justify-content:center;}
+  .start-cta-action{justify-content:center;}
+  .start-cta-stat p{color:#6b6a8a;}
+}
+@media(max-width:560px){
+  .start-cta-chat{display:none;}
+  .start-cta-left{flex-direction:column;text-align:center;gap:14px;padding:32px 24px;}
+  .start-cta-illustration{width:130px;height:130px;}
+  .start-cta-heading{font-size:20px;}
+  .start-cta-eyebrow{display:block;}
+  .start-cta-right{padding:28px 20px;}
+  .start-cta-stats{gap:0;column-gap:4px;}
+  .start-cta-stat{padding:0 8px;max-width:104px;}
+  .start-cta-stat-icon{width:46px;height:46px;}
+  .start-cta-stat-icon svg{width:20px;height:20px;}
+  .start-cta-stat h4{font-size:13px;}
+  .start-cta-stat p{font-size:11.5px;}
+  .start-cta-divider{height:56px;}
+  .start-cta-btn{width:100%;justify-content:center;}
+}
   </style>
 </head>
 <body style="font-family: 'Lato', sans-serif; background-color: #ffffff; color: #0f172a; overflow-x: hidden;">
@@ -3021,7 +3081,7 @@ section {overflow: visible;}
 <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="position:relative;overflow:hidden;transition:top .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;background-color: #ffffff;">
 <div>
 <div class="position-relative mb-3 rounded-4 overflow-hidden fx-media-hover" style="overflow:hidden;transition:box-shadow .45s ease;height: 250px;">
-<img alt="Expert Interview Panelist" class="w-100 h-100" src="freelencer2.png" style="object-fit: cover;"/>
+<img alt="Expert Interview Panelist" class="w-100 h-100" src="freelancer2.webp" style="object-fit: cover;"/>
 </div>
 <h4 class="fw-bold text-dark mb-2" style="font-size: 18px;">Expert Interview Panelist</h4>
 <p class="text-muted mb-4" style="font-size: 14px; line-height: 1.5;">Monetize your insights. Leverage your talent assessment skills to join expert session supporting companies remotely.</p>
@@ -3054,7 +3114,7 @@ section {overflow: visible;}
 <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="position:relative;overflow:hidden;transition:top .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;background-color: #ffffff;">
 <div>
 <div class="position-relative mb-3 rounded-4 overflow-hidden fx-media-hover" style="overflow:hidden;transition:box-shadow .45s ease;height: 250px;">
-<img alt="Hire Verified Freelancers" class="w-100 h-100" src="companies1.png" style="object-fit: cover;"/>
+<img alt="Hire Verified Freelancers" class="w-100 h-100" src="companies1.webp" style="object-fit: cover;"/>
 </div>
 <h4 class="fw-bold text-dark mb-2" style="font-size: 18px;">Hire Verified Freelancers &amp; Remote Experts</h4>
 <p class="text-muted mb-4" style="font-size: 14px; line-height: 1.5;">Quickly find and onboard verified freelancers and remote experts for your hourly, short term, or project-based needs.</p>
@@ -3068,7 +3128,7 @@ section {overflow: visible;}
 <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="position:relative;overflow:hidden;transition:top .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;background-color: #ffffff;">
 <div>
 <div class="position-relative mb-3 rounded-4 overflow-hidden fx-media-hover" style="overflow:hidden;transition:box-shadow .45s ease;height: 250px;">
-<img alt="Book Expert Interview Panelists" class="w-100 h-100" src="companies2.png" style="object-fit: cover;"/>
+<img alt="Book Expert Interview Panelists" class="w-100 h-100" src="companies2.webp" style="object-fit: cover;"/>
 </div>
 <h4 class="fw-bold text-dark mb-2" style="font-size: 18px;">Book Expert Interview Panelists</h4>
 <p class="text-muted mb-4" style="font-size: 14px; line-height: 1.5;">Use industry specialists for faster, high-quality candidate evaluations without burdening your team.</p>
@@ -3163,21 +3223,21 @@ section {overflow: visible;}
 <div>
 <div class="d-flex align-items-center gap-3 mb-3" style="min-height: 48px;">
 <div class="rounded-circle d-flex align-items-center justify-content-center text-white flex-shrink-0 fx-icon-circle" style="transition:transform .35s ease, background-color .35s ease, color .35s ease;width: 38px; height: 42px; background-color: #7b7dfc; font-size: 20px;">
-<i class="fa-solid fa-city"></i>
+<i class="bi bi-people-fill"></i>
 </div>
-<h3 class="fw-bold m-0" style="color: #7b7dfc; font-size: 24px; letter-spacing: -0.3px; line-height: 1.2;">
+<h3 class="fw-bold m-0" style="color: #7b7dfc; font-size: 26px; letter-spacing: -0.3px; line-height: 1.2;">
                   For Businesses
                 </h3>
 </div>
 <div class="row g-3">
 <div class="col-12">
-<p class="mb-2 fx-purpose-text" style="color:#334155;transition:color .4s ease;font-size: 14px; line-height: 1.5;">
+<p class=" fw-semibold mb-2 fx-purpose-text" style="color:#334155;transition:color .4s ease;font-size: 16px; line-height: 1.5;">
                     FlexWork is a fast-growing remote talent marketplace that simplifies how your business accesses top-tier global expertise for short-term, project-based, or hourly roles.
                   </p>
-<p class="mb-2 fx-purpose-text" style="color:#334155;transition:color .4s ease;font-size: 14px; line-height: 1.5;">
+<p class="fw-semibold mb-2 fx-purpose-text" style="color:#334155;transition:color .4s ease;font-size: 16px; line-height: 1.5;">
                     With FlexWork, you can access a global pool of over 1 million professionals from our application database, across diverse geographies and roles, at a reasonable cost with zero registration fees.
                   </p>
-<p class="mb-0 fx-purpose-text" style="color:#334155;transition:color .4s ease;font-size: 14px; line-height: 1.5;">
+<p class=" fw-semibold mb-0 fx-purpose-text" style="color:#334155;transition:color .4s ease;font-size: 16px; line-height: 1.5;">
                     Our system instantly tags the most suitable candidates, and a dedicated FlexWork Agent handles the rest, ensuring a smooth hiring experience.
                   </p>
 </div>
@@ -3196,21 +3256,21 @@ section {overflow: visible;}
 <div>
 <div class="d-flex align-items-center gap-3 mb-3" style="min-height: 48px;">
 <div class="rounded-circle d-flex align-items-center justify-content-center text-white flex-shrink-0 fx-icon-circle" style="transition:transform .35s ease, background-color .35s ease, color .35s ease;width: 38px; height: 42px; background-color: #ffcd00; font-size: 20px;">
-<i class="fa-regular fa-user"></i>
+<i class="bi-person-workspace"></i>
 </div>
-<h3 class="fw-bold m-0" style="color: #ffcd00; font-size: 24px; letter-spacing: -0.3px; line-height: 1.2;">
+<h3 class="fw-bold m-0" style="color: #000000; font-size: 26px; letter-spacing: -0.3px; line-height: 1.2;">
                   For Freelancers And Consultants
                 </h3>
 </div>
 <div class="row g-2">
 <div class="col-12">
-<p class="mb-2 fx-purpose-text" style="color:#334155;transition:color .4s ease;font-size: 14px; line-height: 1.5;">
+<p class=" fw-semibold mb-2 fx-purpose-text" style="color:#334155;transition:color .4s ease;font-size: 16px; line-height: 1.5;">
                     Our platform is dedicated to bridging the gap between skilled professionals and meaningful, remote job opportunities, connecting talent from various geographies and industries.
                   </p>
-<p class="mb-2 fx-purpose-text" style="color:#334155;transition:color .4s ease;font-size: 14px; line-height: 1.5;">
+<p class="fw-semibold mb-2 fx-purpose-text" style="color:#334155;transition:color .4s ease;font-size: 16px; line-height: 1.5;">
                     We empower individuals from rural regions, fresh graduates, career returners, and freelancers to pursue work on their own terms, earn a sustainable livelihood, build meaningful careers, and create opportunities for themselves.
                   </p>
-<p class="mb-0 fx-purpose-text" style="color:#334155;transition:color .4s ease;font-size: 14px; line-height: 1.5;">
+<p class="fw-semibold mb-0 fx-purpose-text" style="color:#334155;transition:color .4s ease;font-size: 16px; line-height: 1.5;">
                     We're committed to creating an equitable ecosystem where talent meets opportunity, and work adapts to individual lives.
                   </p>
 </div>
