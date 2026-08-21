@@ -2368,6 +2368,67 @@ section {overflow: visible;}
     }
 
 }
+
+/* ============ "Not Sure Where To Start?" CTA — responsive rebuild ============ */
+.start-cta{position:relative;margin-top:40px;border-radius:28px;overflow:hidden;background:#ffffff;box-shadow:0 22px 46px -22px rgba(74,63,214,.35);}
+.start-cta-diagonal{position:absolute;inset:0;background:linear-gradient(135deg,#8688fd,#6a6cf5);clip-path:polygon(0 0, 58% 0, 46% 100%, 0 100%);z-index:1;transition:clip-path .3s ease;}
+.start-cta-dots{position:absolute;top:0;right:0;width:170px;height:170px;background-image:radial-gradient(#d8d9ff 1.6px, transparent 1.6px);background-size:16px 16px;-webkit-mask-image:linear-gradient(to bottom left, #000 30%, transparent 75%);mask-image:linear-gradient(to bottom left, #000 30%, transparent 75%);opacity:.9;z-index:0;pointer-events:none;}
+.start-cta-chat{position:absolute;top:24px;left:28px;width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;z-index:2;}
+.start-cta-chat svg{width:20px;height:20px;}
+.start-cta-content{position:relative;z-index:2;display:flex;align-items:center;flex-wrap:wrap;padding:56px 48px 48px;gap:32px;}
+.start-cta-left{display:flex;align-items:center;gap:24px;flex:1 1 400px;min-width:320px;}
+.start-cta-illustration{width:180px;height:180px;object-fit:contain;flex:none;display:block;}
+.start-cta-eyebrow{display:inline-block;color:#ffcd00;font-weight:800;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;border-bottom:2px solid #ffcd00;padding-bottom:6px;margin-bottom:14px;}
+.start-cta-heading{margin:0;font-size:26px;font-weight:900;line-height:1.35;color:#ffffff;}
+.start-cta-heading span{color:#ffcd00;}
+.start-cta-right{flex:1 1 420px;min-width:340px;display:flex;flex-direction:column;align-items:flex-end;gap:24px;}
+.start-cta-stats{display:flex;align-items:flex-start;flex-wrap:wrap;justify-content:flex-end;row-gap:16px;}
+.start-cta-stat{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 18px;max-width:150px;}
+.start-cta-stat-icon{width:56px;height:56px;border-radius:50%;background:#eef0ff;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+.start-cta-stat-icon svg{width:24px;height:24px;}
+.start-cta-stat h4{margin:0 0 6px;font-size:14.5px;font-weight:800;color:#1c1b3a;}
+.start-cta-stat p{margin:0;font-size:12.5px;color:#6b6a8a;line-height:1.4;}
+.start-cta-divider{width:1px;height:78px;background:#e7e7fb;align-self:center;flex:none;}
+.start-cta-action{display:flex;align-items:center;justify-content:flex-end;width:100%;}
+.start-cta-btn{position:relative;flex:none;white-space:nowrap;background:#ffcd00;color:#000000;font-weight:900;letter-spacing:.03em;font-size:14.5px;padding:17px 32px;border-radius:14px;border:none;display:inline-flex;align-items:center;gap:10px;cursor:pointer;box-shadow:0 14px 26px -10px rgba(0,0,0,.35);transition:transform .3s ease, box-shadow .3s ease;}
+.start-cta-btn svg{width:16px;height:16px;}
+.start-cta-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 20px 36px -10px rgba(0,0,0,.45);}
+
+/* hover: personalized guidance / quick response / 100% free support turn yellow */
+.start-cta-stat{cursor:default;transition:transform .3s ease;}
+.start-cta-stat-icon{transition:background .3s ease, transform .3s ease;}
+.start-cta-stat-icon svg{transition:stroke .3s ease;}
+.start-cta-stat h4{transition:color .3s ease;}
+.start-cta-stat:hover{transform:translateY(-4px);}
+.start-cta-stat:hover .start-cta-stat-icon{background:#fff1b8;transform:scale(1.06);}
+.start-cta-stat:hover .start-cta-stat-icon svg{stroke:#c99a00;}
+.start-cta-stat:hover h4{color:#8a6d00;}
+
+@media(max-width:900px){
+  .start-cta-diagonal, .start-cta-dots{display:none;}
+  .start-cta-content{flex-direction:column;align-items:stretch;padding:0;gap:0;}
+  .start-cta-left{min-width:0;background:linear-gradient(135deg,#8688fd,#6a6cf5);padding:40px 32px;margin:0;}
+  .start-cta-right{min-width:0;align-items:stretch;background:#ffffff;padding:32px;gap:24px;}
+  .start-cta-stats{justify-content:center;}
+  .start-cta-action{justify-content:center;}
+  .start-cta-stat p{color:#6b6a8a;}
+}
+@media(max-width:560px){
+  .start-cta-chat{display:none;}
+  .start-cta-left{flex-direction:column;text-align:center;gap:14px;padding:32px 24px;}
+  .start-cta-illustration{width:130px;height:130px;}
+  .start-cta-heading{font-size:20px;}
+  .start-cta-eyebrow{display:block;}
+  .start-cta-right{padding:28px 20px;}
+  .start-cta-stats{gap:0;column-gap:4px;}
+  .start-cta-stat{padding:0 8px;max-width:104px;}
+  .start-cta-stat-icon{width:46px;height:46px;}
+  .start-cta-stat-icon svg{width:20px;height:20px;}
+  .start-cta-stat h4{font-size:13px;}
+  .start-cta-stat p{font-size:11.5px;}
+  .start-cta-divider{height:56px;}
+  .start-cta-btn{width:100%;justify-content:center;}
+}
   </style>
 </head>
 <body style="font-family: 'Lato', sans-serif; background-color: #ffffff; color: #0f172a; overflow-x: hidden;">
@@ -3274,75 +3335,71 @@ section {overflow: visible;}
         </div>
       </div>
     </div>
-<!-- ================= CTA BANNER — "Not Sure Where To Start?" (redesigned to match reference image, inline styles) ================= -->
-    <div style="position:relative;margin-top:40px;border-radius:28px;overflow:hidden;background:#ffffff;box-shadow:0 22px 46px -22px rgba(74,63,214,.35);">
+<!-- ================= CTA BANNER — "Not Sure Where To Start?" (responsive, class-based) ================= -->
+    <div class="start-cta">
 
-      <!-- diagonal purple panel -->
-      <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#8688fd,#6a6cf5);clip-path:polygon(0 0, 58% 0, 46% 100%, 0 100%);z-index:1;"></div>
+      <!-- diagonal purple panel (becomes a plain solid panel on mobile — see media query) -->
+      <div class="start-cta-diagonal"></div>
 
       <!-- top-right decorative dot grid -->
-      <div style="position:absolute;top:0;right:0;width:170px;height:170px;background-image:radial-gradient(#d8d9ff 1.6px, transparent 1.6px);background-size:16px 16px;-webkit-mask-image:linear-gradient(to bottom left, #000 30%, transparent 75%);mask-image:linear-gradient(to bottom left, #000 30%, transparent 75%);opacity:.9;z-index:0;pointer-events:none;"></div>
+      <div class="start-cta-dots"></div>
 
       <!-- small chat icon top-left of purple panel -->
-      <div style="position:absolute;top:24px;left:28px;width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;z-index:2;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" style="width:20px;height:20px;"><line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="12" x2="16" y2="12"/></svg>
+      <div class="start-cta-chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"><line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="12" x2="16" y2="12"/></svg>
       </div>
 
-      <div style="position:relative;z-index:2;display:flex;align-items:center;flex-wrap:wrap;padding:56px 48px 48px;gap:32px;">
+      <div class="start-cta-content">
 
         <!-- LEFT: robot illustration + heading (sits on purple) -->
-        <div style="display:flex;align-items:center;gap:24px;flex:1 1 400px;min-width:320px;">
-          <img src="https://res.cloudinary.com/dzyzswtmz/image/upload/v1785570494/ChatGPT_Image_Aug_1__2026__01_13_13_PM-removebg-preview_n1nef3.png" alt="FlexWork agent illustration" style="width:180px;height:180px;object-fit:contain;flex:none;display:block;">
+        <div class="start-cta-left">
+          <img src="https://res.cloudinary.com/dzyzswtmz/image/upload/v1785570494/ChatGPT_Image_Aug_1__2026__01_13_13_PM-removebg-preview_n1nef3.png" alt="FlexWork agent illustration" class="start-cta-illustration">
           <div>
-            <span style="display:inline-block;color:#ffcd00;font-weight:800;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;border-bottom:2px solid #ffcd00;padding-bottom:6px;margin-bottom:14px;">Need Guidance?</span>
-            <h3 style="margin:0;font-size:26px;font-weight:900;line-height:1.35;color:#ffffff;">Not Sure Where To Start?<br>Talk To A <span style="color:#ffcd00;">FlexWork</span><br>Agent Today!</h3>
+            <span class="start-cta-eyebrow">Need Guidance?</span>
+            <h3 class="start-cta-heading">Not Sure Where To Start?<br>Talk To A <span>FlexWork</span><br>Agent Today!</h3>
           </div>
         </div>
 
         <!-- RIGHT: feature stats + button (sits on white) -->
-        <div style="flex:1 1 420px;min-width:340px;display:flex;flex-direction:column;align-items:flex-end;gap:24px;">
+        <div class="start-cta-right">
 
-          <div style="display:flex;align-items:flex-start;">
+          <div class="start-cta-stats">
 
-            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 18px;">
-              <div style="width:56px;height:56px;border-radius:50%;background:#eef0ff;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#7b7dfc" stroke-width="2" style="width:24px;height:24px;"><path d="M4 4h16a2 2 0 012 2v9a2 2 0 01-2 2H9l-5 4v-4H4a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+            <div class="start-cta-stat">
+              <div class="start-cta-stat-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#7b7dfc" stroke-width="2"><path d="M4 4h16a2 2 0 012 2v9a2 2 0 01-2 2H9l-5 4v-4H4a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
               </div>
-              <h4 style="margin:0 0 6px;font-size:14.5px;font-weight:800;color:#1c1b3a;">Personalized<br>Guidance</h4>
-              <p style="margin:0;font-size:12.5px;color:#6b6a8a;line-height:1.4;max-width:120px;">Solutions tailored just for you.</p>
+              <h4>Personalized<br>Guidance</h4>
+              <p>Solutions tailored just for you.</p>
             </div>
 
-            <div style="width:1px;height:78px;background:#e7e7fb;align-self:center;"></div>
+            <div class="start-cta-divider"></div>
 
-            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 18px;">
-              <div style="width:56px;height:56px;border-radius:50%;background:#eef0ff;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#7b7dfc" stroke-width="2" style="width:24px;height:24px;"><path d="M13 2 L4 14 h6 l-1 8 9-12h-6z"/></svg>
+            <div class="start-cta-stat">
+              <div class="start-cta-stat-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#7b7dfc" stroke-width="2"><path d="M13 2 L4 14 h6 l-1 8 9-12h-6z"/></svg>
               </div>
-              <h4 style="margin:0 0 6px;font-size:14.5px;font-weight:800;color:#1c1b3a;">Quick<br>Response</h4>
-              <p style="margin:0;font-size:12.5px;color:#6b6a8a;line-height:1.4;max-width:120px;">Get answers when you need.</p>
+              <h4>Quick<br>Response</h4>
+              <p>Get answers when you need.</p>
             </div>
 
-            <div style="width:1px;height:78px;background:#e7e7fb;align-self:center;"></div>
+            <div class="start-cta-divider"></div>
 
-            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 18px;">
-              <div style="width:56px;height:56px;border-radius:50%;background:#eef0ff;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#7b7dfc" stroke-width="2" style="width:24px;height:24px;"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>
+            <div class="start-cta-stat">
+              <div class="start-cta-stat-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#7b7dfc" stroke-width="2"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>
               </div>
-              <h4 style="margin:0 0 6px;font-size:14.5px;font-weight:800;color:#1c1b3a;">100% Free<br>Support</h4>
-              <p style="margin:0;font-size:12.5px;color:#6b6a8a;line-height:1.4;max-width:120px;">We're here to help you succeed.</p>
+              <h4>100% Free<br>Support</h4>
+              <p>We're here to help you succeed.</p>
             </div>
 
           </div>
 
-          <div style="display:flex;align-items:center;gap:18px;">
-            <svg viewBox="0 0 60 50" style="width:52px;height:44px;">
-              <path d="M4 6 C4 26, 20 34, 32 34 C40 34, 44 30, 46 24" fill="none" stroke="#7b7dfc" stroke-width="2" stroke-linecap="round"/>
-              <path d="M38 18 L48 26 L54 14" fill="none" stroke="#7b7dfc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <button style="position:relative;flex:none;white-space:nowrap;background:#ffcd00;color:#000000;font-weight:900;letter-spacing:.03em;font-size:14.5px;padding:17px 32px;border-radius:14px;border:none;display:inline-flex;align-items:center;gap:10px;cursor:pointer;box-shadow:0 14px 26px -10px rgba(0,0,0,.35);">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:17px;height:17px;"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg>
+          <div class="start-cta-action">
+            <button class="start-cta-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg>
               <span>GET IN TOUCH</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:16px;height:16px;"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
           </div>
 
