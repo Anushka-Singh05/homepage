@@ -2484,6 +2484,195 @@ section {overflow: visible;}
   .start-cta-divider{height:56px;}
   .start-cta-btn{width:100%;justify-content:center;}
 }
+/* Keep existing desktop view unchanged */
+
+@media (max-width: 991px) {
+    #projectTalentCarousel {
+        width: 100%;
+        height: auto !important;
+        min-height: 0;
+        aspect-ratio: 16 / 10;
+    }
+
+    #ptCarouselTrack {
+        width: 100%;
+        height: 100% !important;
+        position: relative;
+    }
+
+    .pt-carousel-slide {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+    }
+}
+
+@media (max-width: 576px) {
+    #projectTalentCarousel {
+        aspect-ratio: 1 / 1;
+    }
+
+    #ptCarouselTrack {
+        height: 100% !important;
+    }
+
+    .pt-carousel-slide {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+    }
+}
+/* ================= SERVICES CAROUSEL ================= */
+
+.services-carousel-wrap {
+    position: relative;
+    width: 100%;
+}
+
+.services-row {
+    position: relative;
+}
+
+/* Arrow styling */
+.services-carousel-wrap .carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    color: #7b7dfc;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.10);
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.services-carousel-wrap .carousel-nav svg {
+    width: 20px;
+    height: 20px;
+}
+
+.services-carousel-wrap .carousel-nav:hover {
+    background: #7b7dfc;
+    color: #ffffff;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.services-carousel-wrap .services-prev {
+    left: -55px;
+}
+
+.services-carousel-wrap .services-next {
+    right: -55px;
+}
+
+/* Dots */
+.services-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    margin-top: 20px;
+}
+
+.services-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #d9d9e8;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.services-dots span.active {
+    width: 22px;
+    border-radius: 10px;
+    background: #7b7dfc;
+}
+
+
+/* ================= ONE CARD AT A TIME ================= */
+
+@media (max-width: 800px) {
+
+    .services-carousel-wrap {
+        padding: 0 55px;
+    }
+
+    .services-row {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow: hidden;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .services-row > [class*="col-"] {
+        flex: 0 0 100%;
+        max-width: 100%;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .services-carousel-wrap .services-prev {
+        left: 5px;
+    }
+
+    .services-carousel-wrap .services-next {
+        right: 5px;
+    }
+
+    .services-carousel-wrap .carousel-nav {
+        width: 40px;
+        height: 40px;
+    }
+
+    .services-carousel-wrap .carousel-nav svg {
+        width: 19px;
+        height: 19px;
+    }
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 576px) {
+
+    .services-carousel-wrap {
+        padding: 0 45px;
+    }
+
+    .services-carousel-wrap .services-prev {
+        left: 0;
+    }
+
+    .services-carousel-wrap .services-next {
+        right: 0;
+    }
+
+    .services-carousel-wrap .carousel-nav {
+        width: 36px;
+        height: 36px;
+    }
+
+    .services-carousel-wrap .carousel-nav svg {
+        width: 17px;
+        height: 17px;
+    }
+}
   </style>
 </head>
 <body style="font-family: 'Lato', sans-serif; background-color: #ffffff; color: #0f172a; overflow-x: hidden;">
