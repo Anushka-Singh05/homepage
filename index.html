@@ -217,6 +217,12 @@ background: linear-gradient(
   transform: skewX(-20deg);
   animation: yellowSweep 2s ease-in-out infinite;
   pointer-events: none;}
+/* Same hover-lift effect used on the hero badge, shared by every
+   badge that carries the .shimmer class (services, vision, cards, tags) */
+.shimmer:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px -6px rgba(123,125,252,.35);
+}
 .fx-avatar:hover {transform: translateY(-4px) scale(1.15); box-shadow:0 10px 20px -6px rgba(123,125,252,.55); position:relative; z-index:5;}
 .fx-btn-primary:hover {background-color: #ffcd00;
   transform: translateY(-3px);
@@ -879,6 +885,9 @@ section {overflow: visible;}
     padding:8px 18px;
     border-radius:999px;
     margin-bottom:18px;
+    position:relative;overflow:hidden;
+    animation:purpleBulge 2.8s ease-in-out infinite;
+    transition:transform .25s ease, box-shadow .25s ease;
   }
   .eyebrow svg{width:16px;height:16px;flex:none;animation:spin 6s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg);}}
@@ -967,7 +976,9 @@ section {overflow: visible;}
     background:var(--purple);
     color:#fff;
     box-shadow:0 12px 20px -8px rgba(123,125,252,.55);
-    transition:background .4s ease, color .4s ease, transform .4s ease;
+    transition:background .4s ease, color .4s ease, transform .4s ease, box-shadow .25s ease;
+    animation:purpleBulge 2.8s ease-in-out infinite;
+    overflow:hidden;
   }
   .vcard-badge svg{width:21px;height:21px;}
   .vcard:hover .vcard-badge{
@@ -1153,6 +1164,48 @@ section {overflow: visible;}
   .services-row.in .col-12:nth-child(2) .fx-service-card{ animation-delay:.1s; }
   .services-row.in .col-12:nth-child(3) .fx-service-card{ animation-delay:.16s; }
 
+  /* Our Services cards — horizontal swipe carousel from 1300px down;
+     Bootstrap's grid columns stay untouched above 1300px. */
+  @media (max-width: 1300px){
+    .services-row{
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 18px;
+      margin-bottom: -8px;
+      scrollbar-width: none;
+    }
+    .services-row::-webkit-scrollbar{ display:none; }
+    .services-row > .col-12{
+      flex: 0 0 300px;
+      width: 300px;
+      max-width: 300px;
+      scroll-snap-align: start;
+    }
+  }
+  @media (max-width: 575.98px){
+    .services-row > .col-12{
+      flex: 0 0 82vw;
+      width: 82vw;
+      max-width: 82vw;
+    }
+  }
+
+  /* Arrows + dots only make sense once the row is a carousel (<=1300px) */
+  .services-carousel-wrap .carousel-nav,
+  .services-carousel-wrap .dots{ display:none; }
+  @media (max-width: 1300px){
+    .services-carousel-wrap .carousel-nav{ display:flex; }
+    .services-carousel-wrap .dots{ display:flex; }
+  }
+  .services-carousel-wrap .carousel-nav.prev{ left:-8px; }
+  .services-carousel-wrap .carousel-nav.next{ right:-8px; }
+  .services-carousel-wrap .dots{ margin:6px 0 0; }
+  @media (max-width: 640px){
+    .services-carousel-wrap .carousel-nav{ display:none; }
+  }
+
   .job-card{
     scroll-snap-align:start;
     flex:0 0 auto;
@@ -1203,6 +1256,9 @@ section {overflow: visible;}
     display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.05em;
     background:var(--yellow-soft);color:#8a6d00;
     padding:5px 12px;border-radius:999px;margin-bottom:14px;
+    position:relative;overflow:hidden;
+    animation:purpleBulge 2.8s ease-in-out infinite;
+    transition:transform .25s ease, box-shadow .25s ease;
   }
   .badge::before{content:"";width:6px;height:6px;border-radius:50%;background:#8a6d00;flex:none;}
   .job-role{font-size:13px;color:var(--ink);line-height:1.5;margin:0 0 16px;min-height:40px; }
@@ -2889,16 +2945,21 @@ section {overflow: visible;}
 <div class="rounded-4 overflow-hidden shadow-sm mx-auto fx-media-hover fx-reveal fx-reveal-left"
      style="overflow:hidden; transition:box-shadow .45s ease; max-width:480px; height:420px;">
 
-    <video
-        poster="Find_Project_Talent_poster.jpg"
-        autoplay
-        loop
-        muted
-        playsinline
-        style="width:100%; height:100%; object-fit:cover; object-position:center;"
-    >
-        <source src="Find_Project_Talent.mp4" type="video/mp4">
-    </video>
+    <div class="position-relative" id="projectTalentCarousel" style="width:100%; height:100%;">
+
+        <div id="ptCarouselTrack" style="width:100%; height:100%; position:relative;">
+            <img src="find_project_talent1.png" alt="Client browsing vetted project talent" class="pt-carousel-slide" data-index="0" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:center; opacity:1; transition:opacity .7s ease;">
+            <img src="find_project_talent2.png" alt="Freelancer profile with skills and reviews" class="pt-carousel-slide" data-index="1" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:center; opacity:0; transition:opacity .7s ease;">
+            <img src="find_project_talent3.png" alt="Team collaborating on a remote project" class="pt-carousel-slide" data-index="2" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:center; opacity:0; transition:opacity .7s ease;">
+        </div>
+
+        <div id="ptCarouselDots" style="position:absolute; bottom:16px; left:0; width:100%; display:flex; justify-content:center; gap:9px; z-index:3;">
+            <span class="pt-dot" data-index="0" style="width:9px; height:9px; border-radius:50%; background:var(--purple); cursor:pointer; transition:all .3s ease; box-shadow:0 1px 4px rgba(0,0,0,.25);"></span>
+            <span class="pt-dot" data-index="1" style="width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.75); cursor:pointer; transition:all .3s ease; box-shadow:0 1px 4px rgba(0,0,0,.25);"></span>
+            <span class="pt-dot" data-index="2" style="width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.75); cursor:pointer; transition:all .3s ease; box-shadow:0 1px 4px rgba(0,0,0,.25);"></span>
+        </div>
+
+    </div>
 
 </div>
 </div>
@@ -3048,6 +3109,28 @@ section {overflow: visible;}
 <section class="gap-3 p-3 px-md-4 mb-5" style="background-color: #fafbfc;">
 <div class="container">
 <div class="text-center mb-4 fx-reveal">
+<!-- BADGE -->
+<div class="d-inline-flex align-items-center gap-2 mb-4 px-3 py-2 shimmer" style="position:relative;overflow:hidden;animation:badgePop 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.15s both, purpleBulge 2.8s ease-in-out infinite;transition:transform 0.25s ease, box-shadow 0.25s ease;
+               background: #eeeafe;
+               border-radius: 30px;
+               color: #7b7dfc;
+               font-size: 14px;
+               font-weight: 700;
+               box-shadow: 0 4px 15px rgba(123, 125, 252, 0.08);
+             ;">
+<span class="d-flex align-items-center justify-content-center" style="
+                  width: 26px;
+                  height: 26px;
+                  border-radius: 50%;
+                  background: #ffffff;
+                ">
+<i class="bi bi-briefcase" style="
+                 color: #7b7dfc !important;
+                 font-size: 16px;
+               "></i>
+</span>
+<span>Opportunities For Everyone, Anywhere</span>
+</div>
 <h2 class="fw-bold text-dark mb-2" style="font-size: 36px; font-weight: 900; letter-spacing: -0.5px;">
         Our Services
       </h2>
@@ -3077,6 +3160,13 @@ section {overflow: visible;}
 <div class="tab-content" id="serviceTabsContent">
 <!-- ================= TAB 1: FREELANCER ================= -->
 <div class="tab-pane fade show active" id="freelancer" role="tabpanel">
+<div class="services-carousel-wrap position-relative">
+<button class="carousel-nav prev services-prev" aria-label="Previous" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+</button>
+<button class="carousel-nav next services-next" aria-label="Next" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+</button>
 <div class="row g-4 reveal services-row">
 <div class="col-12 col-md-6 col-lg-4 d-flex">
 <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="position:relative;overflow:hidden;transition:top .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;background-color: #ffffff;">
@@ -3110,7 +3200,7 @@ section {overflow: visible;}
 <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="position:relative;overflow:hidden;transition:top .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;background-color: #ffffff;">
 <div>
 <div class="position-relative mb-3 rounded-4 overflow-hidden fx-media-hover" style="overflow:hidden;transition:box-shadow .45s ease;height: 250px;">
-<img alt="FlexWork Certified Trainer" class="w-100 h-100 fx-trainer-img" src="freelencer3.png" style="object-fit: cover;"/>
+<img alt="FlexWork Certified Trainer" class="w-100 h-100 fx-trainer-img" src="freelancer3.webp" style="object-fit: cover;"/>
 </div>
 <h4 class="fw-bold text-dark mb-2" style="font-size: 18px;">Enroll as a FlexWork Certified Online Trainer</h4>
 <p class="text-muted mb-4" style="font-size: 14px; line-height: 1.5;">Share your expertise as a certified online trainer and reach a global audience.</p>
@@ -3121,9 +3211,18 @@ section {overflow: visible;}
 </div>
 </div>
 </div>
+<div class="dots services-dots"></div>
+</div>
 </div>
 <!-- ================= TAB 2: COMPANIES ================= -->
 <div class="tab-pane fade" id="companies" role="tabpanel">
+<div class="services-carousel-wrap position-relative">
+<button class="carousel-nav prev services-prev" aria-label="Previous" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+</button>
+<button class="carousel-nav next services-next" aria-label="Next" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+</button>
 <div class="row g-4 reveal services-row">
 <div class="col-12 col-md-6 col-lg-4 d-flex">
 <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="position:relative;overflow:hidden;transition:top .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;background-color: #ffffff;">
@@ -3168,9 +3267,18 @@ section {overflow: visible;}
 </div>
 </div>
 </div>
+<div class="dots services-dots"></div>
+</div>
 </div>
 <!-- ================= TAB 3: TRAINING PROGRAMS ================= -->
 <div class="tab-pane fade" id="training" role="tabpanel">
+<div class="services-carousel-wrap position-relative">
+<button class="carousel-nav prev services-prev" aria-label="Previous" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+</button>
+<button class="carousel-nav next services-next" aria-label="Next" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+</button>
 <div class="row g-4 reveal services-row">
 <div class="col-12 col-md-6 col-lg-4 d-flex">
 <div class="card border-0 rounded-4 shadow-sm w-100 p-3 d-flex flex-column justify-content-between fx-service-card" style="position:relative;overflow:hidden;transition:top .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;background-color: #ffffff;">
@@ -3214,6 +3322,8 @@ section {overflow: visible;}
               </a>
 </div>
 </div>
+</div>
+<div class="dots services-dots"></div>
 </div>
 </div>
 </div>
@@ -3306,6 +3416,28 @@ section {overflow: visible;}
 <section class="vision">
   <div class="wrap">
     <div class="vision-head center reveal">
+      <!-- BADGE -->
+      <div class="d-inline-flex align-items-center gap-2 mb-4 px-3 py-2 shimmer" style="position:relative;overflow:hidden;animation:badgePop 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.15s both, purpleBulge 2.8s ease-in-out infinite;transition:transform 0.25s ease, box-shadow 0.25s ease;
+               background: #eeeafe;
+               border-radius: 30px;
+               color: #7b7dfc;
+               font-size: 14px;
+               font-weight: 700;
+               box-shadow: 0 4px 15px rgba(123, 125, 252, 0.08);
+             ;">
+        <span class="d-flex align-items-center justify-content-center" style="
+                  width: 26px;
+                  height: 26px;
+                  border-radius: 50%;
+                  background: #ffffff;
+                ">
+          <i class="bi bi-rocket-takeoff" style="
+                 color: #7b7dfc !important;
+                 font-size: 16px;
+               "></i>
+        </span>
+        <span>Focus on Global Growth</span>
+      </div>
       <h2 class="section-title">Our Vision — <span class="accent">The Future We're Building</span></h2>
       <p class="section-sub">Our vision is to reshape the global gig workforce by making global talent accessible on demand — bringing businesses proven experts and fueling growth without geographical limits.</p>
     </div>
@@ -3315,7 +3447,7 @@ section {overflow: visible;}
         <div class="vcard reveal d1">
           <div class="vcard-media">
             <img src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1784693378/ChatGPT_Image_Jul_22__2026__08_30_12_AM-removebg-preview_nrgnji.png" alt="Flexible work for all illustration">
-            <span class="vcard-badge">
+            <span class="vcard-badge shimmer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 20l-5.5 2V6L9 4m0 16l6 2m-6-2V4m6 18l5.5-2V4L15 6m0 16V4m0 0L9 6"/></svg>
             </span>
           </div>
@@ -3327,7 +3459,7 @@ section {overflow: visible;}
         <div class="vcard reveal d2">
           <div class="vcard-media">
             <img src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1784693605/ChatGPT_Image_Jul_22__2026__08_31_01_AM-removebg-preview_vp5msz.png" alt="Global jobs easy access illustration">
-            <span class="vcard-badge">
+            <span class="vcard-badge shimmer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.7 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.7-3.8-9S9.5 5.5 12 3z"/></svg>
             </span>
           </div>
@@ -3339,7 +3471,7 @@ section {overflow: visible;}
         <div class="vcard reveal d3">
           <div class="vcard-media">
             <img src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1784693593/ChatGPT_Image_Jul_22__2026__09_41_29_AM-removebg-preview_nn7fmz.png" alt="Talent without borders illustration">
-            <span class="vcard-badge">
+            <span class="vcard-badge shimmer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-3.5 3.5-6 8-6s8 2.5 8 6"/></svg>
             </span>
           </div>
@@ -3428,7 +3560,7 @@ section {overflow: visible;}
 <section class="jobs">
   <div class="wrap">
     <div class="jobs-head center reveal">
-      <span class="eyebrow" style="background:#eef0ff;color:var(--purple);">
+      <span class="eyebrow shimmer" style="background:#eef0ff;color:var(--purple);">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M5 12l4-4M5 12l4 4"/></svg>
         Explore Opportunities
       </span>
@@ -3458,7 +3590,7 @@ section {overflow: visible;}
 </div>
           <h4>Mainframe IMS Systems DBA</h4>
           <p class="job-org">TechNova Solutions</p>
-          <span class="badge">CONSULTANT</span>
+          <span class="badge shimmer">CONSULTANT</span>
           <p class="job-role"><b>Role:</b> Mainframe IMS Systems DBA</p>
           <div class="job-meta">
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>3 hrs/day</span>
@@ -3477,7 +3609,7 @@ section {overflow: visible;}
           </div>
           <h4>Mainframe DB2 Systems DBA</h4>
           <p class="job-org">TechNova Solutions</p>
-          <span class="badge">CONSULTANT</span>
+          <span class="badge shimmer">CONSULTANT</span>
           <p class="job-role"><b>Role:</b> Mainframe DB2 Systems DBA</p>
           <div class="job-meta">
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>3 hrs/day</span>
@@ -3496,7 +3628,7 @@ section {overflow: visible;}
           </div>
           <h4>Freelance Product Sales Consultant US Market</h4>
           <p class="job-org">SalesFlow Global</p>
-          <span class="badge">CONSULTANT</span>
+          <span class="badge shimmer">CONSULTANT</span>
           <p class="job-role"><b>Role:</b> Freelance Product Sales Consultant US Market</p>
           <div class="job-meta">
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>4 hrs/day</span>
@@ -3515,7 +3647,7 @@ section {overflow: visible;}
           </div>
           <h4>Freelance Sales Consultant Gig Workforce Solutions</h4>
           <p class="job-org">WorkForce Hub</p>
-          <span class="badge">CONSULTANT</span>
+          <span class="badge shimmer">CONSULTANT</span>
           <p class="job-role"><b>Role:</b> Freelance Sales Consultant Gig Workforce Solutions</p>
           <div class="job-meta">
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>4 hrs/day</span>
@@ -3534,7 +3666,7 @@ section {overflow: visible;}
           </div>
           <h4>Freelance Product Sales Consultant</h4>
           <p class="job-org">SalesFlow Global</p>
-          <span class="badge">CONSULTANT</span>
+          <span class="badge shimmer">CONSULTANT</span>
           <p class="job-role"><b>Role:</b> Freelance Product Sales Consultant</p>
           <div class="job-meta">
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>4 hrs/day</span>
@@ -3553,7 +3685,7 @@ section {overflow: visible;}
           </div>
           <h4>Analytics Engineer</h4>
           <p class="job-org">DataMinds Tech</p>
-          <span class="badge">CONSULTANT</span>
+          <span class="badge shimmer">CONSULTANT</span>
           <p class="job-role"><b>Role:</b> Analytics Engineer</p>
           <div class="job-meta">
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>3 hrs/day</span>
@@ -3579,7 +3711,7 @@ section {overflow: visible;}
     
     <!-- Section Title & Subtitle -->
     <div class="videos-head text-center mb-4">
-      <span class="eyebrow">
+      <span class="eyebrow shimmer">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
         Media Gallery
       </span>
@@ -3875,6 +4007,70 @@ document
     });
   });
 
+document.querySelectorAll('.services-carousel-wrap').forEach((wrap) => {
+  const track = wrap.querySelector('.services-row');
+  const prevBtn = wrap.querySelector('.services-prev');
+  const nextBtn = wrap.querySelector('.services-next');
+  const dotsWrap = wrap.querySelector('.services-dots');
+  if (!track) return;
+
+  const cards = [...track.children];
+
+  if (dotsWrap) {
+    cards.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => {
+        const card = track.children[i];
+        if (card) {
+          track.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+        }
+      });
+      dotsWrap.appendChild(dot);
+    });
+  }
+
+  function servicesScrollAmount() {
+    const card = track.querySelector('.col-12');
+    return card ? card.getBoundingClientRect().width + 24 : 300;
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      track.scrollBy({ left: -servicesScrollAmount(), behavior: 'smooth' });
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      track.scrollBy({ left: servicesScrollAmount(), behavior: 'smooth' });
+    });
+  }
+
+  let servicesTicking = false;
+
+  track.addEventListener('scroll', () => {
+    if (servicesTicking) return;
+    servicesTicking = true;
+
+    requestAnimationFrame(() => {
+      let closest = 0;
+      let min = Infinity;
+
+      cards.forEach((c, i) => {
+        const d = Math.abs(c.offsetLeft - track.scrollLeft);
+        if (d < min) { min = d; closest = i; }
+      });
+
+      if (dotsWrap) {
+        [...dotsWrap.children].forEach((d, i) => d.classList.toggle('active', i === closest));
+      }
+
+      servicesTicking = false;
+    });
+  });
+});
+
 const jobsTrack = document.getElementById('jobsTrack');
 const jobsPrev = document.getElementById('jobsPrev');
 const jobsNext = document.getElementById('jobsNext');
@@ -3899,6 +4095,56 @@ if (jobsTrack && jobsPrev && jobsNext) {
     });
   });
 }
+
+// ---- Find Project Talent: 3-image fade carousel (replaces the old video) ----
+(function () {
+  const wrap = document.getElementById('projectTalentCarousel');
+  const slides = document.querySelectorAll('#ptCarouselTrack .pt-carousel-slide');
+  const dots = document.querySelectorAll('#ptCarouselDots .pt-dot');
+
+  if (!wrap || !slides.length) return;
+
+  let current = 0;
+  let autoTimer = null;
+
+  function goTo(index) {
+    current = (index + slides.length) % slides.length;
+
+    slides.forEach((slide, i) => {
+      slide.style.opacity = i === current ? '1' : '0';
+    });
+
+    dots.forEach((dot, i) => {
+      dot.style.background = i === current ? 'var(--purple)' : 'rgba(255,255,255,.75)';
+      dot.style.transform = i === current ? 'scale(1.15)' : 'scale(1)';
+    });
+  }
+
+  function next() { goTo(current + 1); }
+
+  function startAuto() {
+    stopAuto();
+    autoTimer = setInterval(next, 4000);
+  }
+
+  function stopAuto() {
+    if (autoTimer) clearInterval(autoTimer);
+    autoTimer = null;
+  }
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      goTo(i);
+      startAuto();
+    });
+  });
+
+  wrap.addEventListener('mouseenter', stopAuto);
+  wrap.addEventListener('mouseleave', startAuto);
+
+  goTo(0);
+  startAuto();
+})();
 
 const videos = [
   {
