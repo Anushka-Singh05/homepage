@@ -338,6 +338,9 @@ background: linear-gradient(
 .fx-step-wrapper:has(.fx-step:hover) .fx-number {transform: scale(1.15) rotate(-8deg);}
 .fx-media-hover img {transition: transform .55s cubic-bezier(.2,.8,.2,1);}
 .fx-media-hover:hover img {transform: scale(1.05);}
+.fx-media-hover:hover video {
+    transform: scale(1.1);
+}
 .fx-service-card:hover {top: -8px;
     box-shadow: 0 26px 48px -22px rgba(123,125,252,.8) !important;}
 .fx-service-card::after {content: "";
@@ -2883,8 +2886,20 @@ section {overflow: visible;}
 <div class="tab-pane fade" id="project-talent" role="tabpanel">
 <div class="row align-items-center g-4 g-lg-5" style="min-height: 500px;">
 <div class="col-12 col-lg-6 text-center">
-<div class="rounded-4 overflow-hidden shadow-sm mx-auto fx-media-hover fx-reveal fx-reveal-left" style="overflow:hidden;transition:box-shadow .45s ease;max-width: 480px; height: 400px;">
-<img alt="Find Project Talent View" class="w-100 h-100" src="find_project_talent.png" style="object-fit: fit; object-position: center;"/>
+<div class="rounded-4 overflow-hidden shadow-sm mx-auto fx-media-hover fx-reveal fx-reveal-left"
+     style="overflow:hidden; transition:box-shadow .45s ease; max-width:480px; height:420px;">
+
+    <video
+        poster="Find_Project_Talent_poster.jpg"
+        autoplay
+        loop
+        muted
+        playsinline
+        style="width:100%; height:100%; object-fit:cover; object-position:center;"
+    >
+        <source src="Find_Project_Talent.mp4" type="video/mp4">
+    </video>
+
 </div>
 </div>
 <div class="col-12 col-lg-6 ps-lg-4 d-flex flex-column justify-content-between" style="min-height: 400px;">
