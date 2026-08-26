@@ -2672,8 +2672,16 @@ section {overflow: visible;}
         height: 17px;
     }
 }
+/* Hide carousel arrows and dots on desktop */
+@media (min-width: 992px) {
+  .services-carousel-wrap .carousel-nav,
+  .services-carousel-wrap .services-dots {
+    display: none !important;
+  }
+}
   </style>
 </head>
+
 <body style="font-family: 'Lato', sans-serif; background-color: #ffffff; color: #0f172a; overflow-x: hidden;">
 <!-- NAVBAR 
 <header class="py-3 position-sticky top-0 shadow-sm" style="background-color: #7b7dfc; z-index: 1030;">
