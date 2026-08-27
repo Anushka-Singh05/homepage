@@ -1163,47 +1163,70 @@ section {overflow: visible;}
   .services-row.in .col-12:nth-child(2) .fx-service-card{ animation-delay:.1s; }
   .services-row.in .col-12:nth-child(3) .fx-service-card{ animation-delay:.16s; }
 
-  /* Our Services cards — horizontal swipe carousel from 1300px down;
-     Bootstrap's grid columns stay untouched above 1300px. */
-  @media (max-width: 1300px){
-    .services-row{
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 18px;
-      margin-bottom: -8px;
-      scrollbar-width: none;
+/* ≤700px: horizontal swipe carousel */
+@media (max-width: 700px) {
+    .services-row {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 18px;
+        margin-bottom: -8px;
+        scrollbar-width: none;
     }
-    .services-row::-webkit-scrollbar{ display:none; }
-    .services-row > .col-12{
-      flex: 0 0 300px;
-      width: 300px;
-      max-width: 300px;
-      scroll-snap-align: start;
+
+    .services-row::-webkit-scrollbar {
+        display: none;
     }
-  }
-  @media (max-width: 575.98px){
-    .services-row > .col-12{
-      flex: 0 0 82vw;
-      width: 82vw;
-      max-width: 82vw;
+
+    .services-row > .col-12 {
+        flex: 0 0 300px;
+        width: 300px;
+        max-width: 300px;
+        scroll-snap-align: start;
     }
-  }
+}
+
+
+/* ≤575px: smaller carousel cards */
+@media (max-width: 575.98px) {
+    .services-row > .col-12 {
+        flex: 0 0 82vw;
+        width: 82vw;
+        max-width: 82vw;
+    }
+}
+@media (min-width: 700px) and (max-width: 1000px) {
+    .services-row {
+        display: flex !important;
+        flex-wrap: wrap !important;
+    }
+
+    .services-row > .col-12 {
+        flex: 0 0 50% !important;
+        width: 50% !important;
+        max-width: 50% !important;
+        min-width: 0 !important;
+    }
+
+    .services-row > .col-12 * {
+        white-space: normal !important;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+    }
+}
 
   /* Arrows + dots only make sense once the row is a carousel (<=1300px) */
   .services-carousel-wrap .carousel-nav,
   .services-carousel-wrap .dots{ display:none; }
-  @media (max-width: 1300px){
+  @media (max-width: 700px){
     .services-carousel-wrap .carousel-nav{ display:flex; }
     .services-carousel-wrap .dots{ display:flex; }
   }
   .services-carousel-wrap .carousel-nav.prev{ left:-8px; }
   .services-carousel-wrap .carousel-nav.next{ right:-8px; }
   .services-carousel-wrap .dots{ margin:6px 0 0; }
-  @media (max-width: 640px){
-    .services-carousel-wrap .carousel-nav{ display:none; }
-  }
+
 
   .job-card{
     scroll-snap-align:start;
@@ -2426,6 +2449,20 @@ section {overflow: visible;}
     }
 
 }
+
+@media (min-width: 700px) and (max-width: 1000px) {
+    .services-row {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+    }
+
+    .services-row > .col-12 {
+        flex: 1 1 0 !important;
+        width: 0 !important;
+        max-width: none !important;
+        min-width: 0 !important;
+    }
+}
 /* ============ "Not Sure Where To Start?" CTA — responsive rebuild ============ */
 .start-cta{position:relative;margin-top:40px;border-radius:28px;overflow:hidden;background:#ffffff;box-shadow:0 22px 46px -22px rgba(74,63,214,.35);}
 .start-cta-diagonal{position:absolute;inset:0;background:linear-gradient(135deg,#8688fd,#6a6cf5);clip-path:polygon(0 0, 58% 0, 46% 100%, 0 100%);z-index:1;transition:clip-path .3s ease;}
@@ -2523,162 +2560,7 @@ section {overflow: visible;}
         object-position: center;
     }
 }
-/* ================= SERVICES CAROUSEL ================= */
 
-.services-carousel-wrap {
-    position: relative;
-    width: 100%;
-}
-
-.services-row {
-    position: relative;
-}
-
-/* Arrow styling */
-.services-carousel-wrap .carousel-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 1px solid #e5e7eb;
-    background: #ffffff;
-    color: #7b7dfc;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.10);
-    cursor: pointer;
-
-    transition: all 0.25s ease;
-}
-
-.services-carousel-wrap .carousel-nav svg {
-    width: 20px;
-    height: 20px;
-}
-
-.services-carousel-wrap .carousel-nav:hover {
-    background: #7b7dfc;
-    color: #ffffff;
-    transform: translateY(-50%) scale(1.08);
-}
-
-.services-carousel-wrap .services-prev {
-    left: -55px;
-}
-
-.services-carousel-wrap .services-next {
-    right: -55px;
-}
-
-/* Dots */
-.services-dots {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 7px;
-    margin-top: 20px;
-}
-
-.services-dots span {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #d9d9e8;
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
-
-.services-dots span.active {
-    width: 22px;
-    border-radius: 10px;
-    background: #7b7dfc;
-}
-
-
-/* ================= ONE CARD AT A TIME ================= */
-
-@media (max-width: 800px) {
-
-    .services-carousel-wrap {
-        padding: 0 55px;
-    }
-
-    .services-row {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow: hidden;
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .services-row > [class*="col-"] {
-        flex: 0 0 100%;
-        max-width: 100%;
-        width: 100%;
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    .services-carousel-wrap .services-prev {
-        left: 5px;
-    }
-
-    .services-carousel-wrap .services-next {
-        right: 5px;
-    }
-
-    .services-carousel-wrap .carousel-nav {
-        width: 40px;
-        height: 40px;
-    }
-
-    .services-carousel-wrap .carousel-nav svg {
-        width: 19px;
-        height: 19px;
-    }
-}
-
-
-/* ================= MOBILE ================= */
-
-@media (max-width: 576px) {
-
-    .services-carousel-wrap {
-        padding: 0 45px;
-    }
-
-    .services-carousel-wrap .services-prev {
-        left: 0;
-    }
-
-    .services-carousel-wrap .services-next {
-        right: 0;
-    }
-
-    .services-carousel-wrap .carousel-nav {
-        width: 36px;
-        height: 36px;
-    }
-
-    .services-carousel-wrap .carousel-nav svg {
-        width: 17px;
-        height: 17px;
-    }
-}
-/* Hide carousel arrows and dots on desktop */
-@media (min-width: 992px) {
-  .services-carousel-wrap .carousel-nav,
-  .services-carousel-wrap .services-dots {
-    display: none !important;
-  }
-}
   </style>
 </head>
 
